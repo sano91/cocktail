@@ -1,5 +1,5 @@
 <template>
-  <v-app id="inspire">
+  <v-app id="inspire" :style="{ backgroundImage: 'url(' + require('@/assets/'+517780+'.jpg') + ')' }" background-size:cover>
     <v-navigation-drawer v-model="drawer" app clipped>
       <v-list dense>
         <v-list-item v-for="item in items" :key="item.text">
@@ -67,3 +67,10 @@ export default {
   }
 };
 </script>
+
+<style>
+
+.background {
+  background-image: url("/assets/5117780")
+};
+</style>
