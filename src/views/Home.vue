@@ -2,7 +2,7 @@
   <v-container>
     <v-autocomplete
       label="Test custom filters"
-      :items="states"
+      :items="cocktails"
       v-model="value"
       filled
       rounded
@@ -19,7 +19,7 @@ export default {
   data() {
     return {
       value: "",
-      states: []
+      cocktails: []
     };
   },
   components: {},
@@ -30,8 +30,8 @@ export default {
   },
   created() {
     axios
-      .get("https://jsonplaceholder.typicode.com/albums")
-      .then(ret => (this.states = ret.data.map(r => r.title)));
+      .get("http://0.0.0.0:8080")
+      .then(ret => (this.cocktails = ret.data.map(r => r.name)));
   }
 };
 </script>
