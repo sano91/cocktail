@@ -28,22 +28,6 @@
             <v-list-item-title v-text="item.text"></v-list-item-title>
           </v-list-item>
         </v-list>
-        <v-list-item class="mt-4">
-          <v-list-item-action>
-            <v-icon color="grey darken-1">mdi-plus-circle-outline</v-icon>
-          </v-list-item-action>
-          <v-list-item-title class="grey--text text--darken-1"
-            >Browse Channels</v-list-item-title
-          >
-        </v-list-item>
-        <v-list-item>
-          <v-list-item-action>
-            <v-icon color="grey darken-1">mdi-settings</v-icon>
-          </v-list-item-action>
-          <v-list-item-title class="grey--text text--darken-1"
-            >Manage Subscriptions</v-list-item-title
-          >
-        </v-list-item>
       </v-list>
     </v-navigation-drawer>
 
@@ -51,7 +35,7 @@
       <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
       <v-icon class="mx-4">fab fa-youtube</v-icon>
       <v-toolbar-title class="mr-12 align-center">
-        <span class="title">Youtube</span>
+        <span class="title">Cocktail Party</span>
       </v-toolbar-title>
       <v-spacer></v-spacer>
       <v-btn text large to="/">Home</v-btn>
@@ -76,11 +60,6 @@ export default {
       { icon: "mdi-glass-cocktail", text: "Subscriptions" }
     ],
     items2: [
-      { picture: 28, text: "Joseph" },
-      { picture: 38, text: "Apple" },
-      { picture: 48, text: "Xbox Ahoy" },
-      { picture: 58, text: "Nokia" },
-      { picture: 78, text: "MKBHD" }
     ]
   }),
   created() {
