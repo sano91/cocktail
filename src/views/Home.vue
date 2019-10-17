@@ -1,18 +1,37 @@
 <template>
-  <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
-  </div>
+  <v-container>
+    <v-autocomplete
+      label="Test custom filters"
+      :items="states"
+      v-model="value"
+      filled
+      rounded
+    ></v-autocomplete>
+    <v-btn @click="goTo">Mennnye</v-btn>
+  </v-container>
 </template>
 
 <script>
-// @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
+import axios from "axios";
 
 export default {
-  name: 'home',
-  components: {
-    HelloWorld
+  name: "home",
+  data() {
+    return {
+      value: "",
+      states: []
+    };
+  },
+  components: {},
+  methods: {
+    goTo() {
+      this.$router.push("/cocktail/" + this.value);
+    }
+  },
+  created() {
+    axios
+      .get("https://jsonplaceholder.typicode.com/albums")
+      .then(ret => (this.states = ret.data.map(r => r.title)));
   }
-}
+};
 </script>
