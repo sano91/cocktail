@@ -1,53 +1,54 @@
 <template>
-  
-
-    <v-card
-    class="mx-auto"
-    max-width="400"
-  >
-    <v-img
-      class="white--text align-end"
-      height="200px"
-      src="https://cdn.vuetifyjs.com/images/cards/docks.jpg"
-    >
-      <v-card-title>Top 10 Australian beaches</v-card-title>
-    </v-img>
-
-    <v-card-subtitle class="pb-0">Number 10</v-card-subtitle>
-
-    <v-card-text class="text--primary">
-      <div>Whitehaven Beach</div>
-
-      <div>Whitsunday Island, Whitsunday Islands</div>
-    </v-card-text>
-
-    <v-card-actions>
-      <v-btn
-        color="orange"
-        text
-      >
-        Share
-      </v-btn>
-
-      <v-btn
-        color="orange"
-        text
-      >
-        Explore
-      </v-btn>
-    </v-card-actions>
-  </v-card>
-  
-  
-
+  <v-simple-table dark>
+    <template>
+      <tbody>
+        <tr>
+          <td>name</td>
+          <td>Pina Colada</td>
+        </tr>
+        <tr>
+        <td>Cocktail Type</td>
+        <td>Long drink</td>
+        </tr>
+        <tr>
+        <td>Cocktail Category</td>
+        <td>gay/ladies</td>
+        </tr>
+        <tr>
+        <td>Alcohol Content</td>
+        <td>Alcoholic</td>
+        </tr>
+        <tr>
+        <td>Glass type</td>
+        <td>Hurricane</td>
+        </tr>
+        <tr>
+        <td>Cocktail Type</td>
+        <td>Long drink</td>
+        </tr>
+        <tr>
+        <td>Recipe</td>
+        <td>brfbfnrfnq furh rhvih fihfiahfifi ahifhasihafhuasfash hgash uihsh if</td>
+        </tr>
+        <tr>
+        <td>ingredients</td>
+        <td>vodka 40ml</td>
+        </tr>
+      </tbody>
+    </template>
+  </v-simple-table>
 </template>
 
 <script>
-export default {
-  name: "home",
-  data() {
-    return {};
-  },
-  components: {}
-};
+  export default {
+    data () {
+      return {
+       cocktail,
+      }
+    },
+    created() {
+    axios
+      .get(`http://0.0.0.0:8080/cocktail/${cocktailname}`)
+      .then(ret => (this.cocktails = ret.data));
+  }  }
 </script>

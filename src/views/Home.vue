@@ -1,13 +1,13 @@
 <template>
   <v-container>
     <v-autocomplete
-      label="Test custom filters"
+      label="Choose coktail"
       :items="cocktails"
       v-model="value"
       filled
       rounded
     ></v-autocomplete>
-    <v-btn @click="goTo">Mennnye</v-btn>
+    <v-btn @click="goTo">Check cocktail</v-btn>
   </v-container>
 </template>
 
