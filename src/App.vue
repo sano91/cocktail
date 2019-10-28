@@ -39,6 +39,8 @@
         <span class="title">Cocktail Party</span>
       </v-toolbar-title>
       <v-spacer></v-spacer>
+      <v-btn @click="signInForm" text large to="/sign-in">Sign in</v-btn>
+      <v-btn text large to="/login">Login</v-btn>
       <v-btn text large to="/">Home</v-btn>
       <v-btn text large to="/about">About</v-btn>
     </v-app-bar>
@@ -78,6 +80,9 @@ export default {
   methods: {
     updateMessage(variable) {
       this.childData= variable;
+    },
+    signInForm(){
+      this.$router.push("/sign-in");
     }
   }
 };
