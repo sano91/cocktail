@@ -4,51 +4,50 @@
       <tbody>
         <tr>
           <td>name</td>
-          <td>Pina Colada</td>
+          <td>{{cocktail.name}}</td>
         </tr>
         <tr>
         <td>Cocktail Type</td>
-        <td>Long drink</td>
+        <td>{{cocktail.type}}</td>
         </tr>
         <tr>
         <td>Cocktail Category</td>
-        <td>gay/ladies</td>
+        <td>{{cocktail.category}}</td>
         </tr>
         <tr>
         <td>Alcohol Content</td>
-        <td>Alcoholic</td>
+        <td>{{cocktail.alcoholContent}}</td>
         </tr>
         <tr>
         <td>Glass type</td>
-        <td>Hurricane</td>
+        <td>{{cocktail.glassType}}</td>
         </tr>
-        <tr>
-        <td>Cocktail Type</td>
-        <td>Long drink</td>
-        </tr>
-        <tr>
+         <tr>
         <td>Recipe</td>
-        <td>brfbfnrfnq furh rhvih fihfiahfifi ahifhasihafhuasfash hgash uihsh if</td>
+        <td>{{cocktail.recipe}}</td>
         </tr>
         <tr>
         <td>ingredients</td>
-        <td>vodka 40ml</td>
+        <td>{{cocktail.ingredients}}</td>
         </tr>
       </tbody>
     </template>
   </v-simple-table>
+  
 </template>
 
 <script>
+import axios from "axios";
+  
   export default {
-    data () {
-      return {
-       cocktail,
+    name: "coctailDetails",
+    computed: {
+      cocktail() {
+        return this.$store.state.cocktail
       }
     },
-    created() {
-    axios
-      .get(`http://0.0.0.0:8080/cocktail/${cocktailname}`)
-      .then(ret => (this.cocktails = ret.data));
-  }  }
+    
+   
+    
+  }
 </script>

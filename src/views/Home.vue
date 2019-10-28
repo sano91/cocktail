@@ -26,6 +26,12 @@ export default {
   methods: {
     goTo() {
       this.$router.push("/cocktail/" + this.value);
+      this.$store.dispatch("getCocktailByName", this.value);
+    
+    },
+     submit: function() {
+      
+      this.tempMessage = "";
     }
   },
   created() {

@@ -1,5 +1,6 @@
 <template>
   <v-app id="inspire">
+      
     <v-navigation-drawer v-model="drawer" app clipped>
       <v-list dense>
         <v-list-item v-for="item in items" :key="item.text">
@@ -49,7 +50,16 @@
 </template>
 
 <script>
+import home from "./views/Home";
+
+
 export default {
+  name: "App",
+  components: {
+    
+   
+    
+  },
   props: {
     source: String
   },
@@ -64,6 +74,11 @@ export default {
   }),
   created() {
     this.$vuetify.theme.dark = true;
+  },
+  methods: {
+    updateMessage(variable) {
+      this.childData= variable;
+    }
   }
 };
 </script>
