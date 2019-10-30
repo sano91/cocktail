@@ -32,20 +32,46 @@ export default new Vuex.Store({
     },
     setSignResult(state, result){
       state.signResult = result
+    },
+    setToken(state, token){
+      window.localStorage.setItem("token", token);
     }
+
   },
   actions: {
-     getCocktailByName(context, name){
+     getCocktailByName(context, name    ){
        axios
        .get(`http://0.0.0.0:8080/cocktail/${name}`)
       .then(ret => (context.commit("setCocktail",ret.data)));
      },
      sendSignIn(context, signForm){
-       axios
-       .post(`http://0.0.0.0:8080/auth/signin`, {
-         signForm:signForm
+       console.log(signForm);
+       axios({
+        method:"post",
+        url: "http://0.0.0.0:8080/auth/signin",
+        data: signForm,
+        headers: {
+          "Access-Control-Allow-Origin" : "*",
+        "Content-Type" :  "application/json",
+          "cache-control": "no-cache",
+        },
        })
-       .then(ret => (context.commit("setSignResult", ret.data)));
+       
+       .then(respond => (context.commit("setSignResult", respond.data)));
+     },
+
+     sendLogin(context, loginForm){
+       axios({
+         method: "post",
+         url: "http://0.0.0.0:8080/auth/login",
+         data: loginForm,
+         headers: {
+          "Access-Control-Allow-Origin" : "*",
+        "Content-Type" :  "application/json",
+          "cache-control": "no-cache",
+        },
+       })
+       .then(respond => (context.commit("setToken", respond.data.token)));
      }
   },
   modules: {}

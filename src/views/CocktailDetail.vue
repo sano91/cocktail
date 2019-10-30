@@ -1,12 +1,15 @@
 <template>
-  <v-simple-table dark>
+
+<v-container fluid ma-0 pa-0 fill-height>
+        <v-layout row>
+          <v-flex xs4><v-simple-table dark >
     <template>
       <tbody>
         <tr>
           <td>Name</td>
           <td>{{ cocktail.name }}</td>
         </tr>
-        <tr v-if="true">
+        <tr v-if="cocktail.type !== null">
           <td>Cocktail Type</td>
           <td>{{ cocktail.type }}</td>
         </tr>
@@ -26,23 +29,42 @@
           <td>Recipe</td>
           <td>{{ cocktail.recipe }}</td>
         </tr>
-        <tr>
-          <td>Ingredients</td>
-          <td>{{ cocktail.ingredients }}</td>
-        </tr>
+        
       </tbody>
+      <h1>Ingredients</h1>
+      <ul id="example-2" >
+        
+        <li style="white-space: nowrap;" v-for="(k, v) in cocktail.ingredients" v-bind:key="v">
+        {{v}} : {{ k }}
+        </li>
+      </ul>
     </template>
-  </v-simple-table>
+  </v-simple-table></v-flex>
+          <v-flex xl4><v-img
+        v-bind:src="imageURL"
+        aspect-ratio="1"
+        class="grey lighten-2"
+        max-width="800"
+        max-height="1000"
+      ></v-img></v-flex>
+          <!-- <v-flex xs4> User Profile</v-flex> -->
+        </v-layout>
+      </v-container>
+  
 </template>
 
 <script>
 import axios from "axios";
 
 export default {
+ 
   name: "coctailDetails",
   computed: {
     cocktail() {
       return this.$store.state.cocktail;
+    },
+    imageURL() {
+      return this.$store.state.cocktail.pictureURL;
     }
   },
   method:{

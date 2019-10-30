@@ -34,6 +34,7 @@
       label="Accept terms and condition?"
       required
     ></v-checkbox>
+   
 
     <v-btn @click="signBtnFunc" :disabled="!valid" color="success" class="mr-4">
       Sign in
@@ -53,6 +54,7 @@ export default {
   name: "sign",
   data: () => ({
     show1: false,
+    dialog: false,
    
     valid: true,
     items: [
@@ -95,8 +97,15 @@ export default {
        if (this.$refs.form.validate()) {
         this.snackbar = true;
       }
-      this.$router.push("/sign/sign-in-result");
-      this.$store.dispatch("sendSignIn", form);
+      //console.log("before push");
+      //this.$router.push("/sign/sign-in-result");
+      //console.log("after push");
+
+      this.$store.dispatch("sendSignIn", {
+      name: this.name,
+      mail: this.email,
+      password: this.password,
+    });
     }
   }
 };

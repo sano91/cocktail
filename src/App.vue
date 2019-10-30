@@ -40,7 +40,7 @@
       </v-toolbar-title>
       <v-spacer></v-spacer>
       <v-btn @click="signInForm" text large to="/sign-in">Sign in</v-btn>
-      <v-btn text large to="/login">Login</v-btn>
+      <v-btn @click="loginForm" text large to="/login">Login</v-btn>
       <v-btn text large to="/">Home</v-btn>
       <v-btn text large to="/about">About</v-btn>
     </v-app-bar>
@@ -48,6 +48,7 @@
     <v-content>
       <router-view />
     </v-content>
+   
   </v-app>
 </template>
 
@@ -83,7 +84,10 @@ export default {
     },
     signInForm(){
       this.$router.push("/sign-in");
-    }
+    },
+    loginForm(){
+      this.$router.push("/login");
+    },
   }
 };
 </script>
