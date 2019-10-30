@@ -3,10 +3,10 @@
     <template>
       <tbody>
         <tr>
-          <td>name</td>
+          <td>Name</td>
           <td>{{ cocktail.name }}</td>
         </tr>
-        <tr>
+        <tr v-if="true">
           <td>Cocktail Type</td>
           <td>{{ cocktail.type }}</td>
         </tr>
@@ -27,7 +27,7 @@
           <td>{{ cocktail.recipe }}</td>
         </tr>
         <tr>
-          <td>ingredients</td>
+          <td>Ingredients</td>
           <td>{{ cocktail.ingredients }}</td>
         </tr>
       </tbody>
@@ -43,6 +43,18 @@ export default {
   computed: {
     cocktail() {
       return this.$store.state.cocktail;
+    }
+  },
+  method:{
+    hasType(){
+      let result;
+      if(this.$refs.cocktail.type !== null ){
+        result = true;
+      }
+      else{
+        result = false;
+      }
+      return result;
     }
   }
 };

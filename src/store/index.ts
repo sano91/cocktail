@@ -21,10 +21,17 @@ export default new Vuex.Store({
       },
       "id": 13
     },
+    signResult: {
+      "success":"false",
+      "name": "",
+  },
   },
   mutations: {
     setCocktail(state, cocktail){
       state.cocktail = cocktail
+    },
+    setSignResult(state, result){
+      state.signResult = result
     }
   },
   actions: {
@@ -32,6 +39,13 @@ export default new Vuex.Store({
        axios
        .get(`http://0.0.0.0:8080/cocktail/${name}`)
       .then(ret => (context.commit("setCocktail",ret.data)));
+     },
+     sendSignIn(context, signForm){
+       axios
+       .post(`http://0.0.0.0:8080/auth/signin`, {
+         signForm:signForm
+       })
+       .then(ret => (context.commit("setSignResult", ret.data)));
      }
   },
   modules: {}

@@ -35,7 +35,7 @@
       required
     ></v-checkbox>
 
-    <v-btn :disabled="!valid" color="success" class="mr-4" @click="validate">
+    <v-btn @click="signBtnFunc" :disabled="!valid" color="success" class="mr-4">
       Sign in
     </v-btn>
 
@@ -53,12 +53,18 @@ export default {
   name: "sign",
   data: () => ({
     show1: false,
+   
     valid: true,
     items: [
       { icon1: "mdi-eye-off-outline", text: "visibility_off" },
       { icon2: "mdi-eye-outline", text: "visibility" }
     ],
-
+    
+    // form: {
+    //   name: this. name,
+    //   email: this.email,
+    //   password: this.password,
+    // },
     
     password: "",
     rules: {
@@ -81,13 +87,16 @@ export default {
     lazy: false
   }),
   methods: {
-    validate() {
-      if (this.$refs.form.validate()) {
-        this.snackbar = true;
-      }
-    },
+    
     reset() {
       this.$refs.form.reset();
+    },
+     signBtnFunc() {
+       if (this.$refs.form.validate()) {
+        this.snackbar = true;
+      }
+      this.$router.push("/sign/sign-in-result");
+      this.$store.dispatch("sendSignIn", form);
     }
   }
 };
