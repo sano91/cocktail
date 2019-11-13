@@ -6,25 +6,14 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    cocktail: {
-      "name": "Addison",
-      "type": "null",
-      "category": "Cocktail",
-      "alcoholContent": "ALCOHOLIC",
-      "glassType": "Martini Glass",
-      "recipe": "Shake together all the ingredients and strain into a cold glass.",
-      "pictureURL": "https://www.thecocktaildb.com/images/media/drink/yzva7x1504820300.jpg",
-      "ingredients": {
-          "Vermouth": "1 1/2 shot ",
-          "null": "null",
-          "Gin": "1 1/2 shot "
-      },
-      "id": 13
-    },
+    cocktail :{},
     signResult: {
       "success":"false",
       "name": "",
   },
+  user: " ",
+  ratingResult:"",
+  getRating:{},
   },
   mutations: {
     setCocktail(state, cocktail){
@@ -35,15 +24,47 @@ export default new Vuex.Store({
     },
     setToken(state, token){
       window.localStorage.setItem("token", token);
-    }
+    },
+    setUser(state, user){
+      state.user = user
+    },
+    setRatingResult(state,ratingResult){
+      state.ratingResult = ratingResult;
+    },
+    setRating(state, rating){
+      state.getRating  = rating;
+    },
 
   },
   actions: {
-     getCocktailByName(context, name    ){
-       axios
-       .get(`http://0.0.0.0:8080/cocktail/${name}`)
-      .then(ret => (context.commit("setCocktail",ret.data)));
+     getCocktailByName(context, name  ){
+       axios({ 
+        method:"get",
+        url: `http://0.0.0.0:8080/cocktail/${name}`,
+        headers:{
+       "Authorization": "Bearer " + window.localStorage.getItem("token"),
+       "Access-Control-Allow-Origin" : "*",
+       "Content-Type" :  "application/json",
+        "cache-control": "no-cache",
+        "Access-Control-Allow-Headers": "Origin, Content-Type, X-Auth-Token",
+      }
+      })
+    .then(ret => (context.commit("setCocktail",ret.data)));
      },
+     getRating(context, name ){
+      axios({ 
+       method:"get",
+       url: `http://0.0.0.0:8080/rating/${name}`,
+       headers:{
+      "Authorization": "Bearer " + window.localStorage.getItem("token"),
+      "Access-Control-Allow-Origin" : "*",
+      "Content-Type" :  "application/json",
+       "cache-control": "no-cache",
+       "Access-Control-Allow-Headers": "Origin, Content-Type, X-Auth-Token",
+     }
+     })
+   .then(ret => (context.commit("setRating",ret.data)));
+    },
      sendSignIn(context, signForm){
        console.log(signForm);
        axios({
@@ -54,12 +75,12 @@ export default new Vuex.Store({
           "Access-Control-Allow-Origin" : "*",
         "Content-Type" :  "application/json",
           "cache-control": "no-cache",
+          "Access-Control-Allow-Headers": "Origin, Content-Type, X-Auth-Token",
+
         },
        })
-       
        .then(respond => (context.commit("setSignResult", respond.data)));
      },
-
      sendLogin(context, loginForm){
        axios({
          method: "post",
@@ -69,10 +90,33 @@ export default new Vuex.Store({
           "Access-Control-Allow-Origin" : "*",
         "Content-Type" :  "application/json",
           "cache-control": "no-cache",
+          "Authorization" : "Bearer " + window.localStorage.getItem("token"),
+          "Access-Control-Allow-Headers": "Origin, Content-Type, X-Auth-Token",
+
         },
        })
        .then(respond => (context.commit("setToken", respond.data.token)));
-     }
+     },
+     getUserName(context, username){
+      context.commit("setUser", username);
+     },
+     sendRating(context, rating){
+      axios({
+        method: "post",
+        data: rating,
+        url: `http://0.0.0.0:8080/cocktail/${rating.cocktailName}/${rating.rating}`,
+        headers: {
+         "Access-Control-Allow-Origin" : "*",
+       "Content-Type" :  "application/json",
+         "cache-control": "no-cache",
+         "Authorization" : "Bearer " + window.localStorage.getItem("token"),
+         "Access-Control-Allow-Headers": "Origin, Content-Type, X-Auth-Token",
+       },
+      })
+      .then(respond => (context.commit("setRatingResult", respond.data)));
+    },
+
   },
+  
   modules: {}
 });

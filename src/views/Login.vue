@@ -69,11 +69,10 @@ export default {
     lazy: false
   }),
   methods: {
-    
-    
-     loginBtnFunc() {
+    loginBtnFunc() {
       
       this.$router.push("/");
+      this.$store.dispatch("getUserName", this.name);
       this.$store.dispatch("sendLogin", {
           username: this.name,
           password: this.password
