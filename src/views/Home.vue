@@ -28,13 +28,25 @@ export default {
       this.$router.push("/cocktail/" + this.value);
       this.$store.dispatch("getCocktailByName", this.value);
     },
-    submit: function() {
+     submit: function() {
+      
       this.tempMessage = "";
     }
   },
   created() {
     axios
-      .get("http://0.0.0.0:8080")
+      ({
+        method: "get",
+         url: `http://0.0.0.0:8080`,
+         headers: {
+          "Access-Control-Allow-Origin" : "*",
+           "Access-Control-Allow-Methods": "DELETE, POST, GET, OPTIONS",
+        "Access-Control-Allow-Headers": "Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With",
+          "Content-Type" :  "application/json",
+            "cache-control": "no-cache",
+            "Authorization": "Bearer " + window.localStorage.getItem("token")
+         }
+      })
       .then(ret => (this.cocktails = ret.data.map(r => r.name)));
   }
 };

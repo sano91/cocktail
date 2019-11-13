@@ -1,21 +1,18 @@
 <template>
   <v-app id="inspire">
-      
     <v-navigation-drawer v-model="drawer" app clipped>
       <v-list dense>
         <v-list-item v-for="item in items" :key="item.text">
-          <v-list-item-action>
-            <v-icon>{{ item.icon }}</v-icon>
-          </v-list-item-action>
-          <v-list-item-content>
-            <v-list-item-title>
-              {{ item.text }}
-            </v-list-item-title>
-          </v-list-item-content>
+          <v-btn absolute="true" color="transparent" depressed="true">
+            <v-list-item-action>
+              <v-icon>{{ item.icon }}</v-icon>
+            </v-list-item-action>
+            <v-list-item-content>
+              <v-list-item-title>{{ item.text }}</v-list-item-title>
+            </v-list-item-content>
+          </v-btn>
         </v-list-item>
-        <v-subheader class="mt-4 grey--text text--darken-1"
-          >SUBSCRIPTIONS</v-subheader
-        >
+        <v-subheader class="mt-4 grey--text text--darken-1">SUBSCRIPTIONS</v-subheader>
         <v-list>
           <v-list-item v-for="item in items2" :key="item.text">
             <v-list-item-avatar>
@@ -23,7 +20,7 @@
                 :src="
                   `https://randomuser.me/api/portraits/men/${item.picture}.jpg`
                 "
-                alt=""
+                alt
               />
             </v-list-item-avatar>
             <v-list-item-title v-text="item.text"></v-list-item-title>
@@ -48,46 +45,39 @@
     <v-content>
       <router-view />
     </v-content>
-   
   </v-app>
 </template>
 
 <script>
 import home from "./views/Home";
 
-
 export default {
   name: "App",
-  components: {
-    
-   
-    
-  },
+  components: {},
   props: {
     source: String
   },
   data: () => ({
     drawer: null,
     items: [
-      { icon: "mdi-email", text: "Most Popular" },
+      { icon: "mdi-fridge-outline", text: "Check Fridge" },
       { icon: "mdi-glass-cocktail", text: "Subscriptions" }
     ],
-    items2: [
-    ]
+    items2: []
   }),
   created() {
     this.$vuetify.theme.dark = true;
   },
   methods: {
     updateMessage(variable) {
-      this.childData= variable;
+      this.childData = variable;
     },
-    signInForm(){
+    signInForm() {
       this.$router.push("/sign-in");
     },
-    loginForm(){
+    loginForm() {
       this.$router.push("/login");
-    },
+    }
   }
 };
 </script>

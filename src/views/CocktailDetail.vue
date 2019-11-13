@@ -9,7 +9,7 @@
           <td>Name</td>
           <td>{{ cocktail.name }}</td>
         </tr>
-        <tr v-if="cocktail.type !== null">
+        <tr v-if="hasType">
           <td>Cocktail Type</td>
           <td>{{ cocktail.type }}</td>
         </tr>
@@ -31,7 +31,7 @@
         </tr>
         
       </tbody>
-      <h1>Ingredients</h1>
+      
       <ul id="example-2" >
         
         <li style="white-space: nowrap;" v-for="(k, v) in cocktail.ingredients" v-bind:key="v">
@@ -44,8 +44,8 @@
         v-bind:src="imageURL"
         aspect-ratio="1"
         class="grey lighten-2"
-        max-width="800"
-        max-height="1000"
+        max-width="auto"
+        max-height="auto"
       ></v-img></v-flex>
           <!-- <v-flex xs4> User Profile</v-flex> -->
         </v-layout>
@@ -63,21 +63,26 @@ export default {
     cocktail() {
       return this.$store.state.cocktail;
     },
-    imageURL() {
-      return this.$store.state.cocktail.pictureURL;
-    }
-  },
-  method:{
     hasType(){
       let result;
-      if(this.$refs.cocktail.type !== null ){
+      if(this.$store.state.cocktail.type !== "null" ){
+        
         result = true;
       }
       else{
         result = false;
       }
+      console.log("result: " + result);
+      console.log(this.$store.state.cocktail.type);
+
       return result;
+    
+  },
+    imageURL() {
+      return this.$store.state.cocktail.pictureURL;
     }
-  }
+  },
+  method:{}
+    
 };
 </script>

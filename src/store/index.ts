@@ -39,9 +39,23 @@ export default new Vuex.Store({
 
   },
   actions: {
-     getCocktailByName(context, name    ){
-       axios
-       .get(`http://0.0.0.0:8080/cocktail/${name}`)
+     getCocktailByName(context, name){
+       console.log("getcocktailbyname:");
+       console.log(window.localStorage.getItem("token"));
+       axios({
+         method: "get",
+         url: `http://0.0.0.0:8080/cocktail/${name}`,
+         headers: {
+          "Access-Control-Allow-Origin" : "*",
+          "Access-Control-Allow-Methods": "DELETE, POST, GET, OPTIONS",
+          "Access-Control-Allow-Headers": "Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With",
+          'Access-Control-Allow-Credentials' : 'true',
+          "Content-Type" :  "application/json",
+            "cache-control": "no-cache",
+            "Authorization": "Bearer " + window.localStorage.getItem("token") 
+         }
+       })
+       
       .then(ret => (context.commit("setCocktail",ret.data)));
      },
      sendSignIn(context, signForm){
@@ -52,8 +66,11 @@ export default new Vuex.Store({
         data: signForm,
         headers: {
           "Access-Control-Allow-Origin" : "*",
+          "Access-Control-Allow-Methods": "DELETE, POST, GET, OPTIONS",
+        "Access-Control-Allow-Headers": "Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With",
         "Content-Type" :  "application/json",
           "cache-control": "no-cache",
+          "Authorization": "Bearer " + window.localStorage.getItem("token")
         },
        })
        
@@ -67,8 +84,11 @@ export default new Vuex.Store({
          data: loginForm,
          headers: {
           "Access-Control-Allow-Origin" : "*",
+          "Access-Control-Allow-Methods": "DELETE, POST, GET, OPTIONS",
+          "Access-Control-Allow-Headers": "Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With",
         "Content-Type" :  "application/json",
           "cache-control": "no-cache",
+          "Authorization": "Bearer " + window.localStorage.getItem("token")
         },
        })
        .then(respond => (context.commit("setToken", respond.data.token)));
