@@ -72,7 +72,7 @@
       ></v-img>
           <tbody>
         <tr>
-          <td></td>
+          <td v-for="rating in ratings" :key="rating.id">{{rating.comment}}</td>
         </tr>
       </tbody>
       </v-flex>
@@ -103,8 +103,8 @@ export default {
     imageURL() {
       return this.$store.state.cocktail.pictureURL;
     },
-    getRating() {
-      return this.$store.state.getRating;
+    ratings() {
+      return this.$store.state.ratings;
     },
     averageRating(){
         return this.$store.state.avgRating;

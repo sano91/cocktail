@@ -13,7 +13,7 @@ export default new Vuex.Store({
   },
   user: " ",
   ratingResult:"",
-  getRating:{},
+  ratings:[],
   avgRating: "",
   },
   mutations: {
@@ -32,8 +32,8 @@ export default new Vuex.Store({
     setRatingResult(state,ratingResult){
       state.ratingResult = ratingResult;
     },
-    setRating(state, rating){
-      state.getRating  = rating;
+    setRatings(state, rating){
+      state.ratings  = rating;
     },
     setAvgRating(state, rating){
       state.avgRating  = rating;
@@ -55,7 +55,7 @@ export default new Vuex.Store({
       })
     .then(ret => (context.commit("setCocktail",ret.data)));
      },
-     getRating(context, name ){
+     getRatings(context, name ){
       axios({ 
        method:"get",
        url: `http://0.0.0.0:8080/rating/${name}`,
@@ -67,9 +67,9 @@ export default new Vuex.Store({
        "Access-Control-Allow-Headers": "Origin, Content-Type, X-Auth-Token",
      }
      })
-   .then(ret => (context.commit("setRating",ret.data)));
+   .then(ret => (context.commit("setRatings",ret.data)));
     },
-    getAvgRating(context, name ){
+    getAvgRatings(context, name ){
       axios({ 
        method:"get",
        url: `http://0.0.0.0:8080/avgrating/${name}`,
@@ -81,7 +81,7 @@ export default new Vuex.Store({
        "Access-Control-Allow-Headers": "Origin, Content-Type, X-Auth-Token",
      }
      })
-   .then(ret => (context.commit("setAvgRating",ret.data)));
+   .then(ret => (context.commit("setAvgRatings",ret.data)));
     },
      sendSignIn(context, signForm){
        console.log(signForm);
