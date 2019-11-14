@@ -7,14 +7,10 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     cocktail :{},
-    signResult: {
-      "success":"false",
-      "name": "",
-  },
+    signResult: {},
   user: " ",
   ratingResult:"",
   getRating:{},
-  avgRating: "",
   },
   mutations: {
     setCocktail(state, cocktail){
@@ -34,9 +30,6 @@ export default new Vuex.Store({
     },
     setRating(state, rating){
       state.getRating  = rating;
-    },
-    setAvgRating(state, rating){
-      state.avgRating  = rating;
     },
 
   },
@@ -69,20 +62,6 @@ export default new Vuex.Store({
      })
    .then(ret => (context.commit("setRating",ret.data)));
     },
-    getAvgRating(context, name ){
-      axios({ 
-       method:"get",
-       url: `http://0.0.0.0:8080/avgrating/${name}`,
-       headers:{
-      "Authorization": "Bearer " + window.localStorage.getItem("token"),
-      "Access-Control-Allow-Origin" : "*",
-      "Content-Type" :  "application/json",
-       "cache-control": "no-cache",
-       "Access-Control-Allow-Headers": "Origin, Content-Type, X-Auth-Token",
-     }
-     })
-   .then(ret => (context.commit("setAvgRating",ret.data)));
-    },
      sendSignIn(context, signForm){
        console.log(signForm);
        axios({
@@ -112,19 +91,19 @@ export default new Vuex.Store({
           "cache-control": "no-cache",
           "Authorization" : "Bearer " + window.localStorage.getItem("token"),
           "Access-Control-Allow-Headers": "Origin, Content-Type, X-Auth-Token",
+
         },
        })
        .then(respond => (context.commit("setToken", respond.data.token)));
      },
      getUserName(context, username){
-       window.localStorage.setItem("username",username);
       context.commit("setUser", username);
      },
      sendRating(context, rating){
       axios({
         method: "post",
         data: rating,
-        url: `http://0.0.0.0:8080/newrating/${rating.cocktailName}`,
+        url: `http://0.0.0.0:8080/cocktail/${rating.cocktailName}/${rating.rating}`,
         headers: {
          "Access-Control-Allow-Origin" : "*",
        "Content-Type" :  "application/json",
