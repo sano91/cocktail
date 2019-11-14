@@ -106,12 +106,13 @@ export default {
         mail: this.email,
         password: this.password
       });
-
-      if (this.signResult) {
-        this.$router.push("/");
-      } else {
-        this.dialog = true;
-      }
+      this.$nextTick(function() {
+        if (this.signResult) {
+          this.$router.push("/");
+        } else {
+          this.dialog = true;
+        }
+      });
     }
   }
 };

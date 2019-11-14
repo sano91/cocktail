@@ -20,7 +20,7 @@ export default {
   methods: {
     goTo() {
       this.$router.push("/cocktail/" + this.value);
-      this.$store.dispatch("getCocktailByName", this.value);
+      //this.$store.dispatch("getCocktailByName", this.value);
       this.$store.dispatch("getRating", this.value);
     },
     submit: function() {

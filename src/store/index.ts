@@ -77,7 +77,8 @@ export default new Vuex.Store({
 
         },
        })
-       .then(respond => (context.commit("setSignResult", respond.data)));
+       .then(respond => (context.commit("setSignResult", respond.data)))
+       .then()
      },
      sendLogin(context, loginForm){
        axios({
@@ -97,7 +98,7 @@ export default new Vuex.Store({
        .then(respond => (context.commit("setToken", respond.data.token)));
      },
      getUserName(context, username){
-      context.commit("setUser", username);
+      window.localStorage.setItem("username",username);
      },
      sendRating(context, rating){
       axios({
