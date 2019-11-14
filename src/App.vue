@@ -44,6 +44,8 @@
       <v-btn @click="loginForm" text large to="/login">Login</v-btn>
       <v-btn text large to="/">Home</v-btn>
       <v-btn text large to="/about">About</v-btn>
+     <v-btn @click="logout" text large>Log out</v-btn>
+
     </v-app-bar>
     <v-content>
       <router-view />
@@ -88,8 +90,14 @@ export default {
     loginForm() {
       this.$router.push("/login");
     },
+<<<<<<< HEAD
     gotoFilter() {
       this.$router.push("/fridge");
+=======
+    logout(){
+      window.localStorage.removeItem("token");
+      window.localStorage.removeItem("username");
+>>>>>>> 81c3d187fe6a2225aa6713bdb735e2c342223d3d
     }
   }
 };

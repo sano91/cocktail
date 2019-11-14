@@ -40,7 +40,7 @@
       </td>
       </tr>
       <tr>
-          <td>Rating: <span class=" pink--text display-1" >{{getRating.rating}}</span>from{{getRating.ratingCount}} vote</td>
+          <td>Rating: <span class=" pink--text display-1" >{{averageRating}}</span>from{{getRating.ratingCount}} vote</td>
         </tr>
         <tr>
           <td width="400%">
@@ -69,7 +69,14 @@
         class="grey lighten-2"
         max-width="auto"
         max-height="600"
-      ></v-img></v-flex>
+      ></v-img>
+          <tbody>
+        <tr>
+          <td></td>
+        </tr>
+      </tbody>
+      </v-flex>
+     
           <!-- <v-flex xs4> User Profile</v-flex> -->
         </v-layout>
       </v-container>
@@ -98,6 +105,9 @@ export default {
     },
     getRating() {
       return this.$store.state.getRating;
+    },
+    averageRating(){
+        return this.$store.state.avgRating;
     }
   },
   methods: {

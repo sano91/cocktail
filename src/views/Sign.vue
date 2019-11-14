@@ -100,7 +100,7 @@ export default {
       //console.log("before push");
       //this.$router.push("/sign/sign-in-result");
       //console.log("after push");
-
+      this.$router.push("/login")
       this.$store.dispatch("sendSignIn", {
         name: this.name,
         mail: this.email,
