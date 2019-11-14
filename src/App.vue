@@ -2,6 +2,7 @@
   <v-app id="inspire">
     <v-navigation-drawer v-model="drawer" app clipped>
       <v-list dense>
+        <v-stepper-header class="pink--text display-1">Welcome {{user}}!</v-stepper-header>
         <v-list-item v-for="item in items" :key="item.text">
           <v-btn absolute="true" color="transparent" depressed="true">
             <v-list-item-action>
@@ -12,7 +13,6 @@
             </v-list-item-content>
           </v-btn>
         </v-list-item>
-        <v-subheader class="mt-4 grey--text text--darken-1">SUBSCRIPTIONS</v-subheader>
         <v-list>
           <v-list-item v-for="item in items2" :key="item.text">
             <v-list-item-avatar>
@@ -29,7 +29,7 @@
       </v-list>
     </v-navigation-drawer>
 
-    <v-app-bar app clipped-left color="red" dense>
+    <v-app-bar app clipped-left color="pink" dense>
       <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
       <v-icon class="mx-4">fab fa-youtube</v-icon>
       <v-toolbar-title class="mr-12 align-center">
@@ -67,6 +67,11 @@ export default {
   }),
   created() {
     this.$vuetify.theme.dark = true;
+  },
+  computed: {
+    user() {
+      return this.$store.state.user;
+    }
   },
   methods: {
     updateMessage(variable) {
