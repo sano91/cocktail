@@ -118,7 +118,7 @@ export default new Vuex.Store({
       axios({
         method: "post",
         data: rating,
-        url: `http://0.0.0.0:8080/cocktail/${rating.cocktailName}/${rating.rating}`,
+        url: `http://0.0.0.0:8080/newrating/${rating.cocktailName}`,
         headers: {
          "Access-Control-Allow-Origin" : "*",
        "Content-Type" :  "application/json",
