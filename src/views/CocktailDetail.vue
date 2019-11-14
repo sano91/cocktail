@@ -9,7 +9,7 @@
           <td>Name</td>
           <td>{{ cocktail.name }}</td>
         </tr>
-        <tr v-if="cocktail.type !== null">
+        <tr v-if="cocktail.type !== 'null' ">
           <td>Cocktail Type</td>
           <td>{{ cocktail.type }}</td>
         </tr>
@@ -40,7 +40,7 @@
       </td>
       </tr>
       <tr>
-          <td>Rating: <span class=" pink--text display-1" >{{averageRating}}</span>from{{getRating.ratingCount}} vote</td>
+          <td>Rating: <span class=" pink--text display-1" ></span>from vote</td>
         </tr>
         <tr>
           <td width="400%">
@@ -70,15 +70,9 @@
         max-width="auto"
         max-height="600"
       ></v-img>
-          <tbody>
-        <tr>
-          <td v-for="rating in ratings" :key="rating.id">{{rating.comment}}</td>
-        </tr>
-      </tbody>
-      </v-flex>
      
-          <!-- <v-flex xs4> User Profile</v-flex> -->
-        </v-layout>
+      </v-flex>
+             </v-layout>
       </v-container>
   
 </template>
@@ -107,7 +101,7 @@ export default {
       return this.$store.state.ratings;
     },
     averageRating(){
-        return this.$store.state.avgRating;
+      return this.$store.state.avgRating;
     }
   },
   methods: {

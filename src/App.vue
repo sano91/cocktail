@@ -36,11 +36,7 @@
         <span class="title">Cocktail Party</span>
       </v-toolbar-title>
       <v-spacer></v-spacer>
-<<<<<<< HEAD
       <v-btn @click="signInForm" text large to="/sign-in">Sign up</v-btn>
-=======
-      <v-btn @click="signInForm" text large to="/sign-in">Sign Up</v-btn>
->>>>>>> 1a8c43204f61312d4704f3845eefebbe68067308
       <v-btn @click="loginForm" text large to="/login">Login</v-btn>
       <v-btn text large to="/">Home</v-btn>
       <v-btn text large to="/about">About</v-btn>
@@ -90,14 +86,12 @@ export default {
     loginForm() {
       this.$router.push("/login");
     },
-<<<<<<< HEAD
     gotoFilter() {
       this.$router.push("/fridge");
-=======
+    },
     logout(){
       window.localStorage.removeItem("token");
       window.localStorage.removeItem("username");
->>>>>>> 81c3d187fe6a2225aa6713bdb735e2c342223d3d
     }
   }
 };

@@ -29,8 +29,8 @@ export default new Vuex.Store({
     setRatingResult(state,ratingResult){
       state.ratingResult = ratingResult;
     },
-    setRatings(state, rating){
-      state.ratings  = rating;
+    setRatings(state, ratings){
+      state.ratings  = ratings;
     },
 
   },
@@ -112,8 +112,8 @@ export default new Vuex.Store({
        .then(respond => (context.commit("setToken", respond.data.token)));
      },
      getUserName(context, username){
-      context.commit("setUser", username);
-     },
+        window.localStorage.setItem("username", username);
+    },
      sendRating(context, rating){
       axios({
         method: "post",
