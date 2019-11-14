@@ -1,19 +1,8 @@
 <template>
   <v-form ref="form" v-model="valid" lazy-validation>
-    <v-text-field
-      v-model="name"
-      :counter="20"
-      :rules="nameRules"
-      label="Name"
-      required
-    ></v-text-field>
+    <v-text-field v-model="name" :counter="20" :rules="nameRules" label="Name" required></v-text-field>
 
-    <v-text-field
-      v-model="email"
-      :rules="emailRules"
-      label="E-mail"
-      required
-    ></v-text-field>
+    <v-text-field v-model="email" :rules="emailRules" label="E-mail" required></v-text-field>
 
     <v-text-field
       v-model="password"
@@ -34,40 +23,47 @@
       label="Accept terms and condition?"
       required
     ></v-checkbox>
-   
 
-    <v-btn @click="signBtnFunc" :disabled="!valid" color="success" class="mr-4">
-      Sign in
-    </v-btn>
+    <v-btn @click="signBtnFunc" :disabled="!valid" color="success" class="mr-4">Sign in</v-btn>
 
-    <v-btn color="error" class="mr-4" @click="reset">
-      Reset Form
-    </v-btn>
+    <v-btn color="error" class="mr-4" @click="reset">Reset Form</v-btn>
+    <v-dialog v-model="dialog" max-width="290">
+      <v-card>
+        <v-card-title class="headline" wrap>Registration fail</v-card-title>
+
+        <v-card-text wrap>Name was taken, please try sign-up with different name.</v-card-text>
+
+        <v-card-actions>
+          <v-spacer></v-spacer>
+
+          <v-btn color="green darken-1" text @click="dialog = false">Ok</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
   </v-form>
 </template>
 
 <script>
-
-import { mdiEyeOffOutline, mdiEyeOutline } from '@mdi/js';
+import { mdiEyeOffOutline, mdiEyeOutline } from "@mdi/js";
 
 export default {
   name: "sign",
   data: () => ({
     show1: false,
     dialog: false,
-   
+
     valid: true,
     items: [
       { icon1: "mdi-eye-off-outline", text: "visibility_off" },
       { icon2: "mdi-eye-outline", text: "visibility" }
     ],
-    
+
     // form: {
     //   name: this. name,
     //   email: this.email,
     //   password: this.password,
     // },
-    
+
     password: "",
     rules: {
       required: value => !!value || "Required.",
@@ -88,24 +84,34 @@ export default {
     checkbox: false,
     lazy: false
   }),
+  computed: {
+    signResult() {
+      return this.$store.state.signResult;
+    }
+  },
   methods: {
-    
     reset() {
       this.$refs.form.reset();
     },
-     signBtnFunc() {
-       if (this.$refs.form.validate()) {
+    signBtnFunc() {
+      if (this.$refs.form.validate()) {
         this.snackbar = true;
       }
       //console.log("before push");
       //this.$router.push("/sign/sign-in-result");
       //console.log("after push");
-      this.$router.push("/login")
+
       this.$store.dispatch("sendSignIn", {
-      name: this.name,
-      mail: this.email,
-      password: this.password,
-    });
+        name: this.name,
+        mail: this.email,
+        password: this.password
+      });
+
+      if (this.signResult) {
+        this.$router.push("/");
+      } else {
+        this.dialog = true;
+      }
     }
   }
 };
