@@ -40,24 +40,27 @@
       </td>
       </tr>
       <tr>
-          <td>Rating: <span class=" pink--text display-1" >{{getRating.rating}}</span> <v-spacer></v-spacer>from{{getRating.ratingCount}} vote</td>
+          <td>Rating: <span class=" pink--text display-1" >{{getRating.rating}}</span>from{{getRating.ratingCount}} vote</td>
         </tr>
         <tr>
-          <td> <v-rating
+          <td>
+         <v-form align="center" ref="form">
+           <v-rating
       v-model="rating"
       background-color="pink lighten-3"
       color="pink"
       medium 
-    ></v-rating></td>
-              <td>
+    ></v-rating>
             <v-btn
             color="pink"
             class="mr-2"
             @click="sendRating()"
           >Rate</v-btn>
-            </td>
-        </tr>
-      </tbody>
+              <v-text-field v-model="comment" label="Your Comment" ></v-text-field>
+             </v-form>
+             </td>
+             </tr>
+             </tbody>
     </template>
   </v-simple-table></v-flex>
           <v-flex xl4><v-img
@@ -106,8 +109,10 @@ export default {
     },
     sendRating(){
       this.$store.dispatch("sendRating" ,{
+        comment : this.comment,
         cocktailName: this.cocktail.name,
-        rating : this.rating
+        rating : this.rating,
+        userName : this.userName
       })
     }
   }

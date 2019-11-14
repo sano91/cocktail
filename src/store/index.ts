@@ -98,6 +98,7 @@ export default new Vuex.Store({
        .then(respond => (context.commit("setToken", respond.data.token)));
      },
      getUserName(context, username){
+       localStorage.username = username;
       context.commit("setUser", username);
      },
      sendRating(context, rating){

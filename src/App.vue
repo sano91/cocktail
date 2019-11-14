@@ -3,8 +3,8 @@
       
     <v-navigation-drawer v-model="drawer" app clipped>
       <v-list dense>
-        <v-stepper-header class=" pink--text display-1 ">
-            Welcome    {{user}}! 
+        <v-stepper-header class=" pink--text display-1 " >
+            Welcome    {{}}! 
         </v-stepper-header>
         <v-list-item v-for="item in items" :key="item.text">
           <v-list-item-action>
@@ -39,12 +39,11 @@
         <span class="title">Cocktail Party</span>
       </v-toolbar-title>
       <v-spacer></v-spacer>
-      <v-btn @click="signInForm" text large to="/sign-in">Sign in</v-btn>
+      <v-btn @click="signInForm" text large to="/sign-in">Sign Up</v-btn>
       <v-btn @click="loginForm" text large to="/login">Login</v-btn>
       <v-btn text large to="/">Home</v-btn>
       <v-btn text large to="/about">About</v-btn>
     </v-app-bar>
-
     <v-content>
       <router-view />
     </v-content>
