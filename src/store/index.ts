@@ -73,6 +73,7 @@ export default new Vuex.Store({
         data: signForm,
         headers: {
           "Access-Control-Allow-Origin" : "*",
+          "Access-Control-Allow-Methods": "DELETE, POST, GET, OPTIONS",
         "Content-Type" :  "application/json",
           "cache-control": "no-cache",
           "Access-Control-Allow-Headers": "Origin, Content-Type, X-Auth-Token",
@@ -88,6 +89,7 @@ export default new Vuex.Store({
          data: loginForm,
          headers: {
           "Access-Control-Allow-Origin" : "*",
+          "Access-Control-Allow-Methods": "DELETE, POST, GET, OPTIONS",
         "Content-Type" :  "application/json",
           "cache-control": "no-cache",
           "Authorization" : "Bearer " + window.localStorage.getItem("token"),
@@ -98,14 +100,14 @@ export default new Vuex.Store({
        .then(respond => (context.commit("setToken", respond.data.token)));
      },
      getUserName(context, username){
-       localStorage.username = username;
+       window.localStorage.setItem("username",username);
       context.commit("setUser", username);
      },
      sendRating(context, rating){
       axios({
         method: "post",
         data: rating,
-        url: `http://0.0.0.0:8080/cocktail/${rating.cocktailName}/${rating.rating}`,
+        url: `http://0.0.0.0:8080/newrating/${rating.cocktailName}`,
         headers: {
          "Access-Control-Allow-Origin" : "*",
        "Content-Type" :  "application/json",

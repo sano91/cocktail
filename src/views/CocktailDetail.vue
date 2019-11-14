@@ -2,7 +2,7 @@
 
 <v-container fluid ma-0 pa-0 fill-height>
         <v-layout row>
-          <v-flex xs4><v-simple-table dark >
+          <v-flex md6><v-simple-table dark >
     <template width="400">
       <tbody width="300">
         <tr>
@@ -43,8 +43,8 @@
           <td>Rating: <span class=" pink--text display-1" >{{getRating.rating}}</span>from{{getRating.ratingCount}} vote</td>
         </tr>
         <tr>
-          <td>
-         <v-form align="center" ref="form">
+          <td width="400%">
+         <v-form align="center" ref="form" width="400">
            <v-rating
       v-model="rating"
       background-color="pink lighten-3"
@@ -81,10 +81,14 @@ import axios from "axios";
 
 export default {
   name: "coctailDetails",
-    data: () => ({
-      rating: 1,
+  data: () => ({
+    rating: 1,
     cocktailName: " ",
-    }),
+    userName: " ",
+  }),
+  created() {
+    this.userName = window.localStorage.getItem("username");
+  },
   computed: {
     cocktail() {
       return this.$store.state.cocktail;
@@ -92,19 +96,21 @@ export default {
     imageURL() {
       return this.$store.state.cocktail.pictureURL;
     },
-    getRating(){
+    getRating() {
       return this.$store.state.getRating;
     }
   },
-  methods:{
-    hasType(){
+  methods: {
+    hasType() {
       let result;
-      if(this.$refs.cocktail.type !== null ){
+      if (this.$store.state.cocktail.type !== "null") {
         result = true;
-      }
-      else{
+      } else {
         result = false;
       }
+      console.log("result: " + result);
+      console.log(this.$store.state.cocktail.type);
+
       return result;
     },
     sendRating(){
@@ -115,6 +121,7 @@ export default {
         userName : this.userName
       })
     }
-  }
+  },
+  method: {}
 };
 </script>
