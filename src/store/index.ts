@@ -11,9 +11,13 @@ export default new Vuex.Store({
   user: " ",
   ratingResult:"",
   ratings:[],
-  avgRating: "",
+  averageRating: {},
+  allCocktailNames : []
   },
   mutations: {
+    setCocktailNames(state, names){
+      state.allCocktailNames = names;
+    },
     setCocktail(state, cocktail){
       state.cocktail = cocktail
     },
@@ -32,9 +36,26 @@ export default new Vuex.Store({
     setRatings(state, ratings){
       state.ratings  = ratings;
     },
-
+    setAverageRating(state, rating){
+      state.averageRating  = rating;
+    },
   },
   actions: {
+    getCocktailNames(context){
+      axios({ 
+        method:"get",
+        url: "http://0.0.0.0:8080 ",
+        headers:{
+       "Authorization": "Bearer " + window.localStorage.getItem("token"),
+       "Access-Control-Allow-Origin" : "*",
+       "Content-Type" :  "application/json",
+        "cache-control": "no-cache",
+        "Access-Control-Allow-Headers": "Origin, Content-Type, X-Auth-Token",
+      }
+      })
+      .then(ret => (context.commit ("setCocktailNames",ret.data)));
+
+    },
      getCocktailByName(context, name  ){
        axios({ 
         method:"get",
@@ -52,7 +73,7 @@ export default new Vuex.Store({
      getRatings(context, name ){
       axios({ 
        method:"get",
-       url: `http://0.0.0.0:8080/rating/${name}`,
+       url: `http://0.0.0.0:8080/ratings/${name}`,
        headers:{
       "Authorization": "Bearer " + window.localStorage.getItem("token"),
       "Access-Control-Allow-Origin" : "*",
@@ -75,7 +96,7 @@ export default new Vuex.Store({
        "Access-Control-Allow-Headers": "Origin, Content-Type, X-Auth-Token",
      }
      })
-   .then(ret => (context.commit("setAvgRatings",ret.data)));
+   .then(ret => (context.commit("setAverageRating",ret.data)));
     },
      sendSignIn(context, signForm){
        console.log(signForm);

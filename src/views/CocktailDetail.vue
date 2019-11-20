@@ -1,7 +1,7 @@
 <template>
 
 <v-container fluid ma-0 pa-0 fill-height>
-        <v-layout row>
+        <v-layout row >
           <v-flex md6><v-simple-table dark >
     <template width="400">
       <tbody width="300">
@@ -40,9 +40,22 @@
       </td>
       </tr>
       <tr>
-          <td>Rating: <span class=" pink--text display-1" ></span>from vote</td>
+          <td>Rating: <span class=" pink--text display-1" >{{averageRating}}</span>from vote</td>
         </tr>
-        <tr>
+       </tbody>
+    </template>
+  </v-simple-table></v-flex>
+          <v-flex md6 ><v-img
+        v-bind:src="imageURL"
+        aspect-ratio="1"
+        class="grey lighten-2"
+        max-width="auto"
+        max-height="600"
+      ></v-img>
+      </v-flex>
+       <v-flex ><v-simple-table dark >
+       <tbody>
+          <tr>
           <td width="400%">
          <v-form align="center" ref="form" width="400">
            <v-rating
@@ -60,21 +73,30 @@
              </v-form>
              </td>
              </tr>
-             </tbody>
-    </template>
-  </v-simple-table></v-flex>
-          <v-flex xl4><v-img
-        v-bind:src="imageURL"
-        aspect-ratio="1"
-        class="grey lighten-2"
-        max-width="auto"
-        max-height="600"
-      ></v-img>
-     
-      </v-flex>
+             <tr>
+             <td>Ratings and Comments:</td>
+             </tr>
+             <tr v-for="rating in ratings" :key="rating.ratingId">
+               <td>
+                    <tbody >
+                      <tr >
+                        <td> {{rating.userName}}</td>
+                         <td>at {{rating.date.year}}/{{rating.date.monthValue}}/{{rating.date.dayOfMonth}}</td>
+                        <td>  <v-rating
+                        :value="rating.rating"
+      background-color="pink lighten-3"
+      color="pink"
+      small 
+      readonly></v-rating>  </td>
+     <td>{{rating.comment}}</td>
+                      </tr >
+                    </tbody>
+               </td>
+             </tr>
+       </tbody>
+        </v-simple-table></v-flex>
              </v-layout>
       </v-container>
-  
 </template>
 
 <script>
@@ -84,11 +106,13 @@ export default {
   name: "coctailDetails",
   data: () => ({
     rating: 1,
-    cocktailName: " ",
     userName: " ",
+    averageRating: " ",
   }),
   created() {
     this.userName = window.localStorage.getItem("username");
+    this.$store.dispatch('getAvgRatings',cocktail.name);
+    this.averageRating = this.$store.state.averageRating;
   },
   computed: {
     cocktail() {
@@ -97,12 +121,12 @@ export default {
     imageURL() {
       return this.$store.state.cocktail.pictureURL;
     },
+    averageRating(){  
+      return this.$store.state.averageRating;
+    },  
     ratings() {
       return this.$store.state.ratings;
-    },
-    averageRating(){
-      return this.$store.state.avgRating;
-    }
+  },
   },
   methods: {
     hasType() {
@@ -112,9 +136,6 @@ export default {
       } else {
         result = false;
       }
-      console.log("result: " + result);
-      console.log(this.$store.state.cocktail.type);
-
       return result;
     },
     sendRating(){
@@ -124,8 +145,10 @@ export default {
         rating : this.rating,
         userName : this.userName
       })
+      //this.$refs.form.reset()
+      //location.reload();
     }
   },
-  method: {}
 };
 </script>
+

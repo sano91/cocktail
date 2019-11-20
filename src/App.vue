@@ -62,7 +62,7 @@ export default {
     drawer: null,
     items: [
       { icon: "mdi-fridge-outline", text: "Check Fridge" },
-      { icon: "mdi-glass-cocktail", text: "Subscriptions" }
+      { icon: "mdi-glass-cocktail", text: "Add Cocktail" }
     ],
     items2: []
   }),
@@ -92,6 +92,7 @@ export default {
     logout(){
       window.localStorage.removeItem("token");
       window.localStorage.removeItem("username");
+      location.reload();
     }
   }
 };

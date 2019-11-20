@@ -108,7 +108,7 @@ export default {
       });
 
       if (this.signResult) {
-        this.$router.push("/");
+        this.$router.push("/login");
       } else {
         this.dialog = true;
       }
