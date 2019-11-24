@@ -17,11 +17,13 @@ import axios from "axios";
 
 export default {
   name: "fridge",
-  data: () => ({
-    value: "",
-    ingredients: [],
-    choosedIngredients: []
-  }),
+  data() {
+    return {
+      value: "",
+      ingredients: [],
+      choosedIngredients: []
+    };
+  },
 
   components: {},
   methods: {

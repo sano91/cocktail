@@ -4,7 +4,7 @@
       <v-list dense>
         <v-stepper-header class="pink--text display-1">Welcome {{username}}!</v-stepper-header>
         <v-list-item v-for="item in items" :key="item.text">
-          <v-btn @click="gotoFilter" absolute="true" color="transparent" depressed="true">
+          <v-btn @click="gotoFilter" absolute color="transparent" depressed>
             <v-list-item-action>
               <v-icon>{{ item.icon }}</v-icon>
             </v-list-item-action>
@@ -52,10 +52,7 @@ export default {
   },
   data: () => ({
     drawer: null,
-    items: [
-      { icon: "mdi-fridge-outline", text: "Check Fridge" },
-      { icon: "mdi-glass-cocktail", text: "Subscriptions" }
-    ],
+    items: [{ icon: "mdi-fridge-outline", text: "Check Fridge" }],
     items2: []
   }),
   username:"",
