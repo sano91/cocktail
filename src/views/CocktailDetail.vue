@@ -145,8 +145,9 @@ export default {
         rating : this.rating,
         userName : this.userName
       })
-      //this.$refs.form.reset()
-      //location.reload();
+      console.log(this.userName, this.rating, this.cocktail.name, this.comment);
+      this.$refs.form.reset()
+      location.reload();
     }
   },
 };
