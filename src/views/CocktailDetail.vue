@@ -1,89 +1,80 @@
 <template>
-  <v-container fluid ma-0 pa-0 fill-height>
-    <v-layout row>
-      <v-flex md6>
-        <v-simple-table dark>
-          <template width="400">
-            <tbody width="300">
-              <tr>
-                <td>Name</td>
-                <td>{{ cocktail.name }}</td>
-              </tr>
-              <tr v-if="cocktail.type !== 'null'">
-                <td>Cocktail Type</td>
-                <td>{{ cocktail.type }}</td>
-              </tr>
-              <tr>
-                <td>Cocktail Category</td>
-                <td>{{ cocktail.category }}</td>
-              </tr>
-              <tr>
-                <td>Alcohol Content</td>
-                <td>{{ cocktail.alcoholContent }}</td>
-              </tr>
-              <tr>
-                <td>Glass type</td>
-                <td>{{ cocktail.glassType }}</td>
-              </tr>
-              <tr>
-                <td>Recipe</td>
-                <td>{{ cocktail.recipe }}</td>
-              </tr>
-              <tr>
-                <td>Ingredients</td>
-                <td>
-                  <ul id="example-2">
-                    <li
-                      style="white-space: nowrap;"
-                      v-for="(k, v) in cocktail.ingredients"
-                      v-bind:key="v"
-                    >{{v}} : {{ k }}</li>
-                  </ul>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  Rating:
-                  <span class="pink--text display-1">{{averageRating}}</span>
-                  from{{getRating.ratingCount}} vote
-                </td>
-              </tr>
-              <tr>
-                <td width="400%">
-                  <v-form align="center" ref="form" width="400">
-                    <v-rating
-                      v-model="rating"
-                      background-color="pink lighten-3"
-                      color="pink"
-                      medium
-                    ></v-rating>
-                    <v-btn color="pink" class="mr-2" @click="sendRating()">Rate</v-btn>
-                    <v-text-field v-model="comment" label="Your Comment"></v-text-field>
-                  </v-form>
-                </td>
-              </tr>
-            </tbody>
-          </template>
-        </v-simple-table>
-      </v-flex>
-      <v-flex xl4>
-        <v-img
-          v-bind:src="imageURL"
-          aspect-ratio="1"
-          class="grey lighten-2"
-          max-width="auto"
-          max-height="600"
-        ></v-img>
-        <tbody>
-          <tr>
-            <td></td>
-          </tr>
-        </tbody>
-      </v-flex>
 
-      <!-- <v-flex xs4> User Profile</v-flex> -->
-    </v-layout>
-  </v-container>
+<v-container fluid ma-0 pa-0 fill-height>
+        <v-layout row>
+          <v-flex md6><v-simple-table dark >
+    <template width="400">
+      <tbody width="300">
+        <tr>
+          <td>Name</td>
+          <td>{{ cocktail.name }}</td>
+        </tr>
+        <tr v-if="cocktail.type !== 'null' ">
+          <td>Cocktail Type</td>
+          <td>{{ cocktail.type }}</td>
+        </tr>
+        <tr>
+          <td>Cocktail Category</td>
+          <td>{{ cocktail.category }}</td>
+        </tr>
+        <tr>
+          <td>Alcohol Content</td>
+          <td>{{ cocktail.alcoholContent }}</td>
+        </tr>
+        <tr>
+          <td>Glass type</td>
+          <td>{{ cocktail.glassType }}</td>
+        </tr>
+        <tr>
+          <td>Recipe</td>
+          <td>{{ cocktail.recipe }}</td>
+        </tr>
+        <tr>
+          <td>Ingredients </td>
+      <td>
+      <ul id="example-2" >
+        <li style="white-space: nowrap;" v-for="(k, v) in cocktail.ingredients" v-bind:key="v">
+        {{v}} : {{ k }}
+        </li>
+      </ul>
+      </td>
+      </tr>
+      <tr>
+          <td>Rating: <span class=" pink--text display-1" ></span>from vote</td>
+        </tr>
+        <tr>
+          <td width="400%">
+         <v-form align="center" ref="form" width="400">
+           <v-rating
+      v-model="rating"
+      background-color="pink lighten-3"
+      color="pink"
+      medium
+    ></v-rating>
+            <v-btn
+            color="pink"
+            class="mr-2"
+            @click="sendRating()"
+          >Rate</v-btn>
+              <v-text-field v-model="comment" label="Your Comment" ></v-text-field>
+             </v-form>
+             </td>
+             </tr>
+             </tbody>
+    </template>
+  </v-simple-table></v-flex>
+          <v-flex xl4><v-img
+        v-bind:src="imageURL"
+        aspect-ratio="1"
+        class="grey lighten-2"
+        max-width="auto"
+        max-height="600"
+      ></v-img>
+
+      </v-flex>
+             </v-layout>
+      </v-container>
+  
 </template>
 
 <script>
@@ -94,20 +85,23 @@ export default {
   data: () => ({
     rating: 1,
     cocktailName: " ",
-    userName: " "
+    userName: " ",
   }),
-  mounted() {
-    console.log("printeldmár ki basszalak lukon");
-    let currentUrl = window.location.pathname;
-    let urlArr = currentUrl.split("/");
-    let cocktailArr = urlArr[urlArr.length - 1].split("%20");
-    let cocktail = "";
-    for (let cocktailNamePart of cocktailArr) {
-      cocktail += cocktailNamePart + " ";
-    }
-    cocktail = cocktail.substring(0, cocktail.length - 1);
-    console.log(cocktail);
-    this.$store.dispatch("getCocktailByName", cocktail);
+    mounted() {
+        console.log("printeldmár ki basszalak lukon");
+        let currentUrl = window.location.pathname;
+        let urlArr = currentUrl.split("/");
+        let cocktailArr = urlArr[urlArr.length - 1].split("%20");
+        let cocktail = "";
+        for (let cocktailNamePart of cocktailArr) {
+            cocktail += cocktailNamePart + " ";
+        }
+        cocktail = cocktail.substring(0, cocktail.length - 1);
+        console.log(cocktail);
+        this.$store.dispatch("getCocktailByName", cocktail);
+        this.userName = window.localStorage.getItem("username");
+    },
+  created() {
     this.userName = window.localStorage.getItem("username");
   },
   computed: {
@@ -117,10 +111,10 @@ export default {
     imageURL() {
       return this.$store.state.cocktail.pictureURL;
     },
-    getRating() {
-      return this.$store.state.getRating;
+    ratings() {
+      return this.$store.state.ratings;
     },
-    averageRating() {
+    averageRating(){
       return this.$store.state.avgRating;
     }
   },
@@ -137,13 +131,13 @@ export default {
 
       return result;
     },
-    sendRating() {
-      this.$store.dispatch("sendRating", {
-        comment: this.comment,
+    sendRating(){
+      this.$store.dispatch("sendRating" ,{
+        comment : this.comment,
         cocktailName: this.cocktail.name,
-        rating: this.rating,
-        userName: this.userName
-      });
+        rating : this.rating,
+        userName : this.userName
+      })
     }
   },
   method: {}

@@ -10,7 +10,8 @@ export default new Vuex.Store({
     signResult: {},
   user: " ",
   ratingResult:"",
-  getRating:{},
+  ratings:[],
+  avgRating: "",
   },
   mutations: {
     setCocktail(state, cocktail){
@@ -28,8 +29,8 @@ export default new Vuex.Store({
     setRatingResult(state,ratingResult){
       state.ratingResult = ratingResult;
     },
-    setRating(state, rating){
-      state.getRating  = rating;
+    setRatings(state, ratings){
+      state.ratings  = ratings;
     },
 
   },
@@ -48,7 +49,7 @@ export default new Vuex.Store({
       })
     .then(ret => (context.commit("setCocktail",ret.data)));
      },
-     getRating(context, name ){
+     getRatings(context, name ){
       axios({ 
        method:"get",
        url: `http://0.0.0.0:8080/rating/${name}`,
@@ -60,7 +61,21 @@ export default new Vuex.Store({
        "Access-Control-Allow-Headers": "Origin, Content-Type, X-Auth-Token",
      }
      })
-   .then(ret => (context.commit("setRating",ret.data)));
+   .then(ret => (context.commit("setRatings",ret.data)));
+    },
+    getAvgRatings(context, name ){
+      axios({
+       method:"get",
+       url: `http://0.0.0.0:8080/avgrating/${name}`,
+       headers:{
+      "Authorization": "Bearer " + window.localStorage.getItem("token"),
+      "Access-Control-Allow-Origin" : "*",
+      "Content-Type" :  "application/json",
+       "cache-control": "no-cache",
+       "Access-Control-Allow-Headers": "Origin, Content-Type, X-Auth-Token",
+     }
+     })
+   .then(ret => (context.commit("setAvgRatings",ret.data)));
     },
      sendSignIn(context, signForm){
        console.log(signForm);
@@ -77,8 +92,7 @@ export default new Vuex.Store({
 
         },
        })
-       .then(respond => (context.commit("setSignResult", respond.data)))
-       .then()
+       .then(respond => (context.commit("setSignResult", respond.data)));
      },
      sendLogin(context, loginForm){
        axios({
@@ -98,8 +112,8 @@ export default new Vuex.Store({
        .then(respond => (context.commit("setToken", respond.data.token)));
      },
      getUserName(context, username){
-      window.localStorage.setItem("username",username);
-     },
+        window.localStorage.setItem("username", username);
+    },
      sendRating(context, rating){
       axios({
         method: "post",

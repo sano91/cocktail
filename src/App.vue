@@ -58,7 +58,7 @@ export default {
     ],
     items2: []
   }),
-  username: "",
+  username:"",
   created() {
     this.$vuetify.theme.dark = true;
     this.username = window.localStorage.getItem("username");
@@ -81,7 +81,7 @@ export default {
     gotoFilter() {
       this.$router.push("/fridge");
     },
-    logout() {
+    logout(){
       window.localStorage.removeItem("token");
       window.localStorage.removeItem("username");
     }
