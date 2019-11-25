@@ -52,7 +52,10 @@ export default {
   },
   data: () => ({
     drawer: null,
-    items: [{ icon: "mdi-fridge-outline", text: "Check Fridge" }],
+    items: [
+      { icon: "mdi-fridge-outline", text: "Check Fridge" },
+      { icon: "mdi-glass-cocktail", text: "Add Cocktail" }
+    ],
     items2: []
   }),
   username:"",
@@ -81,6 +84,7 @@ export default {
     logout(){
       window.localStorage.removeItem("token");
       window.localStorage.removeItem("username");
+      location.reload();
     }
   }
 };
