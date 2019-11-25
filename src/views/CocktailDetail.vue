@@ -43,8 +43,9 @@
               </tr>
               <tr>
                 <td>
-                  Rating:
-                  <span class="pink--text display-1">{{averageRating}}</span>from vote
+                  Rating: 
+                </td  > 
+                <td><span class="pink--text display-1">{{averageRating.averageRating}} </span> from <span class="pink--text display-1">{{averageRating.sumRating}} </span>vote
                 </td>
               </tr>
             </tbody>
@@ -124,8 +125,8 @@ export default {
     console.log(cocktail);
     this.$store.dispatch("getCocktailByName", cocktail);
     this.$store.dispatch("getRatings", cocktail);
+    this.$store.dispatch("getAvgRating", cocktail);
     this.userName = window.localStorage.getItem("username");
-    this.$store.dispatch("getAvgRatings", cocktail);
   },
 
   computed: {
@@ -167,3 +168,4 @@ export default {
 };
 </script>
 
+  
