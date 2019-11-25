@@ -40,7 +40,7 @@ export default {
         Authorization: "Bearer " + window.localStorage.getItem("token"),
         "Access-Control-Allow-Credentials": "true"
       }
-    }).then(ret => (this.cocktails = ret.data.map(r => r.name)));
+    }).then(ret => (this.cocktails = ret.data));
   }
 };
 </script>
