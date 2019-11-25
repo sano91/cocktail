@@ -28,7 +28,7 @@
         <tr>
           <td>Recipe</td>
           <td>{{ cocktail.recipe }}</td>
-        </tr> 
+        </tr>
         <tr>
           <td>Ingredients </td>
       <td>
@@ -62,7 +62,7 @@
       v-model="rating"
       background-color="pink lighten-3"
       color="pink"
-      medium 
+      medium
     ></v-rating>
             <v-btn
             color="pink"
@@ -109,6 +109,21 @@ export default {
     userName: " ",
     averageRating: " ",
   }),
+    mounted() {
+        console.log("printeldmár ki basszalak lukon");
+        let currentUrl = window.location.pathname;
+        let urlArr = currentUrl.split("/");
+        let cocktailArr = urlArr[urlArr.length - 1].split("%20");
+        let cocktail = "";
+        for (let cocktailNamePart of cocktailArr) {
+            cocktail += cocktailNamePart + " ";
+        }
+        cocktail = cocktail.substring(0, cocktail.length - 1);
+        console.log(cocktail);
+        this.$store.dispatch("getCocktailByName", cocktail);
+        this.$store.dispatch("getRatings",cocktail )
+        this.userName = window.localStorage.getItem("username");
+    },
   created() {
     this.userName = window.localStorage.getItem("username");
     this.$store.dispatch('getAvgRatings',cocktail.name);

@@ -85,7 +85,7 @@ export default new Vuex.Store({
    .then(ret => (context.commit("setRatings",ret.data)));
     },
     getAvgRatings(context, name ){
-      axios({ 
+      axios({
        method:"get",
        url: `http://0.0.0.0:8080/avgrating/${name}`,
        headers:{

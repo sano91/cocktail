@@ -4,7 +4,7 @@
       <v-list dense>
         <v-stepper-header class="pink--text display-1">Welcome {{username}}!</v-stepper-header>
         <v-list-item v-for="item in items" :key="item.text">
-          <v-btn @click="gotoFilter" absolute="true" color="transparent" depressed="true">
+          <v-btn @click="gotoFilter" absolute color="transparent" depressed>
             <v-list-item-action>
               <v-icon>{{ item.icon }}</v-icon>
             </v-list-item-action>
@@ -15,14 +15,7 @@
         </v-list-item>
         <v-list>
           <v-list-item v-for="item in items2" :key="item.text">
-            <v-list-item-avatar>
-              <img
-                :src="
-                  `https://randomuser.me/api/portraits/men/${item.picture}.jpg`
-                "
-                alt
-              />
-            </v-list-item-avatar>
+            <v-list-item-avatar></v-list-item-avatar>
             <v-list-item-title v-text="item.text"></v-list-item-title>
           </v-list-item>
         </v-list>
@@ -40,8 +33,7 @@
       <v-btn @click="loginForm" text large to="/login">Login</v-btn>
       <v-btn text large to="/">Home</v-btn>
       <v-btn text large to="/about">About</v-btn>
-     <v-btn @click="logout" text large>Log out</v-btn>
-
+      <v-btn @click="logout" text large>Log out</v-btn>
     </v-app-bar>
     <v-content>
       <router-view />
