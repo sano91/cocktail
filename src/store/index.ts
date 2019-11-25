@@ -11,7 +11,7 @@ export default new Vuex.Store({
   user: " ",
   ratingResult:"",
   ratings:[],
-  averageRating: " ",
+  averageRating: {},
   allCocktailNames : []
   },
   mutations: {

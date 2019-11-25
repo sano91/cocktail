@@ -24,7 +24,7 @@ export default {
       this.tempMessage = "";
     }
   },
- created() { 
+ created() {
       this.$store.dispatch("getCocktailNames");
        this.$store.dispatch('getRatings',this.value);
 
