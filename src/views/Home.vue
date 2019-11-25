@@ -26,8 +26,6 @@ export default {
   },
  created() {
       this.$store.dispatch("getCocktailNames");
-       this.$store.dispatch('getRatings',this.value);
-
   },
   computed: {
     cocktails() {
