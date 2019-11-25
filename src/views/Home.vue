@@ -12,8 +12,8 @@ export default {
   name: "home",
   data() {
     return {
-      value: "",
-};
+      value: ""
+    };
   },
   components: {},
   methods: {
@@ -24,8 +24,8 @@ export default {
       this.tempMessage = "";
     }
   },
- created() {
-      this.$store.dispatch("getCocktailNames");
+  created() {
+    this.$store.dispatch("getCocktailNames");
   },
   computed: {
     cocktails() {

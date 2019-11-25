@@ -12,7 +12,8 @@ export default new Vuex.Store({
   ratingResult:"",
   ratings:[],
   averageRating: {},
-  allCocktailNames : []
+  allCocktailNames : [],
+  ingredientCocktails: []
   },
   mutations: {
     setCocktailNames(state, names){
@@ -39,6 +40,9 @@ export default new Vuex.Store({
     setAverageRating(state, rating){
       state.averageRating  = rating;
     },
+    setIngredientCocktails(state, cocktails){
+      state.ingredientCocktails = cocktails;
+    }
   },
   actions: {
     getCocktailNames(context){
@@ -150,6 +154,21 @@ export default new Vuex.Store({
       })
       .then(respond => (context.commit("setRatingResult", respond.data)));
     },
+    getIngredientsCocktails(context, ingredients){
+      axios({
+        method: "post",
+        data: ingredients,
+        url: "http://0.0.0.0:8080/filter",
+        headers: {
+          "Access-Control-Allow-Origin" : "*",
+          "Content-Type" :  "application/json",
+          "cache-control": "no-cache",
+          "Authorization" : "Bearer " + window.localStorage.getItem("token"),
+          "Access-Control-Allow-Headers": "Origin, Content-Type, X-Auth-Token",
+        },
+      })
+      .then(respond => (context.commit("setIngredientCocktails"), respond.data))
+    }
 
   },
   

@@ -1,19 +1,31 @@
-<template>
-  <v-container @changing="addTolist">
+<template >
+  <v-container>
     <v-autocomplete
-      @change="$emit('changing', value)"
+      @change="addToList"
       label="Add ingredient"
       :items="ingredients"
       v-model="value"
       filled
       rounded
     ></v-autocomplete>
+    <div
+      class="ingredient"
+      @click="deleteIngredient(ingredient)"
+      v-for="ingredient in choosedIngredients"
+      :key="ingredient"
+    >{{ingredient}}</div>
     <div>
-      <span v-for="ingredient in choosedIngredients" :key="ingredient">{{ingredient}}</span>
+      <v-card @click="goDetailes" class="mx-auto" max-width="240" v-for="n in 12" :key="n">
+        <v-img src="https://cdn.vuetifyjs.com/images/cards/sunshine.jpg" height="200px"></v-img>
+        <v-card-title>{{n}}</v-card-title>
+        <v-card-subtitle>1,000 miles of wonder</v-card-subtitle>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+        </v-card-actions>
+      </v-card>
     </div>
   </v-container>
 </template>
-
 <script>
 import axios from "axios";
 
@@ -28,13 +40,32 @@ export default {
   },
 
   components: {},
+  computed: {
+    choosedCocktails() {
+      console.log(this.$store.state.ingredientCocktails);
+      return this.$store.state.ingredientCocktails;
+    }
+  },
   methods: {
-    addToList(value) {
-      this.choosedIngredients.push(value);
+    goDetailes() {
+      this.$router.push("/cocktail/Addison");
     },
-    changing(value) {
-      console.log(value);
-      addToList(value);
+    addToList() {
+      this.choosedIngredients.push(this.value);
+      this.$store.dispatch("getIngredientsCocktails", {
+        ingredients: this.choosedIngredients
+      });
+    },
+    deleteIngredient(ing) {
+      var index = this.choosedIngredients.indexOf(ing);
+      if (index > -1) {
+        this.choosedIngredients.splice(index, 1);
+      }
+      if (this.choosedIngredients.length > 0) {
+        this.$store.dispatch("getIngredientsCocktails", {
+          ingredients: this.choosedIngredients
+        });
+      }
     }
   },
 
@@ -55,3 +86,22 @@ export default {
   }
 };
 </script>
+<style scoped>
+.ingredient {
+  display: inline-block;
+  font-weight: 300;
+  color: sandybrown;
+  margin-right: 1rem;
+  margin-left: 1rem;
+  cursor: pointer;
+  transition: color 0.2s ease-in-out;
+}
+.ingredient:hover {
+  color: red;
+}
+
+.mx-auto {
+  display: inline-block;
+  margin: 1rem !important;
+}
+</style>
