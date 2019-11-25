@@ -12,29 +12,26 @@ export default {
   name: "home",
   data() {
     return {
-      value: "",
-};
+      value: ""
+    };
   },
   components: {},
   methods: {
     goTo() {
       this.$router.push("/cocktail/" + this.value);
       this.$store.dispatch("getCocktailByName", this.value);
-      this.$store.dispatch("getRatings", this.value);
     },
     submit: function() {
       this.tempMessage = "";
     }
   },
- created() {
-      this.$store.dispatch("getCocktailNames");
-       this.$store.dispatch('getRatings',this.value);
-
+  created() {
+    this.$store.dispatch("getCocktailNames");
   },
   computed: {
     cocktails() {
       return this.$store.state.allCocktailNames;
-    },
+    }
   }
 };
 </script>

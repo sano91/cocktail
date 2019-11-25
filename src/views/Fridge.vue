@@ -1,7 +1,7 @@
-<template>
-  <v-container @changing="addTolist">
+<template >
+  <v-container>
     <v-autocomplete
-      @change="$emit('changing', value)"
+      @change="addToList"
       label="Add ingredient"
       :items="ingredients"
       v-model="value"
@@ -9,7 +9,11 @@
       rounded
     ></v-autocomplete>
     <div>
-      <span v-for="ingredient in choosedIngredients" :key="ingredient">{{ingredient}}</span>
+      <div
+        @click="deleteIngredient(ingredient)"
+        v-for="ingredient in choosedIngredients"
+        :key="ingredient"
+      >{{ingredient}}</div>
     </div>
   </v-container>
 </template>
@@ -29,12 +33,15 @@ export default {
 
   components: {},
   methods: {
-    addToList(value) {
-      this.choosedIngredients.push(value);
+    addToList() {
+      this.choosedIngredients.push(this.value);
     },
-    changing(value) {
-      console.log(value);
-      addToList(value);
+    deleteIngredient(ing) {
+      alert(ing);
+      var index = this.choosedIngredients.indexOf(ing);
+      if (index > -1) {
+        this.choosedIngredients.splice(index);
+      }
     }
   },
 
