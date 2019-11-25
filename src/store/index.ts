@@ -11,7 +11,7 @@ export default new Vuex.Store({
   user: " ",
   ratingResult:"",
   ratings:[],
-  averageRating: {},
+  averageRating: " ",
   allCocktailNames : []
   },
   mutations: {
@@ -84,7 +84,7 @@ export default new Vuex.Store({
      })
    .then(ret => (context.commit("setRatings",ret.data)));
     },
-    getAvgRatings(context, name ){
+    getAvgRating(context, name ){
       axios({
        method:"get",
        url: `http://0.0.0.0:8080/avgrating/${name}`,

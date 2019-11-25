@@ -2,7 +2,7 @@
 
 <v-container fluid ma-0 pa-0 fill-height>
         <v-layout row >
-          <v-flex md6><v-simple-table dark >
+          <v-flex md6><v-simple-table dark height="525" >
     <template width="400">
       <tbody width="300">
         <tr>
@@ -107,10 +107,8 @@ export default {
   data: () => ({
     rating: 1,
     userName: " ",
-    averageRating: " ",
   }),
     mounted() {
-        console.log("printeldmár ki basszalak lukon");
         let currentUrl = window.location.pathname;
         let urlArr = currentUrl.split("/");
         let cocktailArr = urlArr[urlArr.length - 1].split("%20");
@@ -120,15 +118,12 @@ export default {
         }
         cocktail = cocktail.substring(0, cocktail.length - 1);
         console.log(cocktail);
+        console.log(averageRating);
         this.$store.dispatch("getCocktailByName", cocktail);
-        this.$store.dispatch("getRatings",cocktail )
+        this.$store.dispatch("getRatings",cocktail );
+        this.$store.dispatch("getAvgRating", cocktail);
         this.userName = window.localStorage.getItem("username");
     },
-  created() {
-    this.userName = window.localStorage.getItem("username");
-    this.$store.dispatch('getAvgRatings',cocktail.name);
-    this.averageRating = this.$store.state.averageRating;
-  },
   computed: {
     cocktail() {
       return this.$store.state.cocktail;
