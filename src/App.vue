@@ -2,7 +2,7 @@
   <v-app id="inspire">
     <v-navigation-drawer v-model="drawer" app clipped>
       <v-list dense>
-        <v-stepper-header class="pink--text display-1">Welcome {{username}}!</v-stepper-header>
+        <v-img src="../src/assets/realLogo.png" max-height="80" aspect-ratio="1" max-width="auto"></v-img>
         <v-list-item v-for="item in items" :key="item.text">
           <v-btn @click="gotoFilter" absolute color="transparent" depressed>
             <v-list-item-action>
@@ -26,7 +26,7 @@
       <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
       <v-icon class="mx-4">fab fa-youtube</v-icon>
       <v-toolbar-title class="mr-12 align-center">
-        <span class="title">Cocktail Party</span>
+        <span class="title">Welcome {{username}}</span>
       </v-toolbar-title>
       <v-spacer></v-spacer>
       <v-btn @click="signInForm" text large to="/sign-in">Sign up</v-btn>
@@ -58,7 +58,7 @@ export default {
     ],
     items2: []
   }),
-  username:"",
+  username: "",
   created() {
     this.$vuetify.theme.dark = true;
     this.username = window.localStorage.getItem("username");
@@ -81,7 +81,7 @@ export default {
     gotoFilter() {
       this.$router.push("/fridge");
     },
-    logout(){
+    logout() {
       window.localStorage.removeItem("token");
       window.localStorage.removeItem("username");
       location.reload();

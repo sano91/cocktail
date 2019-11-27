@@ -42,10 +42,10 @@
                 </td>
               </tr>
               <tr>
+                <td>Rating:</td>
                 <td>
-                  Rating: 
-                </td  > 
-                <td><span class="pink--text display-1">{{averageRating.averageRating}} </span> from <span class="pink--text display-1">{{averageRating.sumRating}} </span>vote
+                  <span class="pink--text display-1">{{averageRating.averageRating}}</span> from
+                  <span class="pink--text display-1">{{averageRating.sumRating}}</span>vote
                 </td>
               </tr>
             </tbody>

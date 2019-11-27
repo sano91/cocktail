@@ -74,7 +74,7 @@ export default {
         username: this.name,
         password: this.password
       });
-      location.reload();  
+      location.reload();
     }
   }
 };

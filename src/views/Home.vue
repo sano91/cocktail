@@ -30,7 +30,7 @@ export default {
   computed: {
     cocktails() {
       return this.$store.state.allCocktailNames;
-    },
+    }
   }
 };
 </script>

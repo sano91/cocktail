@@ -35,12 +35,17 @@ export default new Vuex.Store({
       state.ratingResult = ratingResult;
     },
     setRatings(state, ratings){
+      console.log("Rts: " + ratings)
+
       state.ratings  = ratings;
+      console.log("Rts: " + state.ratings)
+
     },
     setAverageRating(state, rating){
       state.averageRating  = rating;
     },
     setIngredientCocktails(state, cocktails){
+      console.log("This one is filtered ingredients cocktails: " + cocktails)
       state.ingredientCocktails = cocktails;
     }
   },
@@ -167,7 +172,7 @@ export default new Vuex.Store({
           "Access-Control-Allow-Headers": "Origin, Content-Type, X-Auth-Token",
         },
       })
-      .then(respond => (context.commit("setIngredientCocktails"), respond.data))
+      .then(respond => (context.commit("setIngredientCocktails", respond.data)));
     }
 
   },

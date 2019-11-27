@@ -15,10 +15,16 @@
       :key="ingredient"
     >{{ingredient}}</div>
     <div>
-      <v-card @click="goDetailes" class="mx-auto" max-width="240" v-for="n in 12" :key="n">
-        <v-img src="https://cdn.vuetifyjs.com/images/cards/sunshine.jpg" height="200px"></v-img>
-        <v-card-title>{{n}}</v-card-title>
-        <v-card-subtitle>1,000 miles of wonder</v-card-subtitle>
+      <v-card
+        @click="goDetailes(cocktail.name)"
+        class="mx-auto"
+        max-width="240"
+        v-for="cocktail in choosedCocktails"
+        :key="cocktail.name"
+      >
+        <v-img :src="cocktail.url" height="200px"></v-img>
+        <v-card-title>{{cocktail.name}}</v-card-title>
+        <v-card-subtitle>{{cocktail.alcoholContent}}</v-card-subtitle>
         <v-card-actions>
           <v-spacer></v-spacer>
         </v-card-actions>
@@ -47,8 +53,8 @@ export default {
     }
   },
   methods: {
-    goDetailes() {
-      this.$router.push("/cocktail/Addison");
+    goDetailes(name) {
+      this.$router.push(`/cocktail/` + name);
     },
     addToList() {
       this.choosedIngredients.push(this.value);
