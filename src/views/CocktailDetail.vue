@@ -36,8 +36,8 @@
                     <li
                       style="white-space: nowrap;"
                       v-for="(k, v) in cocktail.ingredients"
-                      v-bind:key="k"
-                    >{{k}} : {{ v }}</li>
+                      v-bind:key="v"
+                    >{{v}} : {{ k }}</li>
                   </ul>
                 </td>
               </tr>
