@@ -36,8 +36,8 @@
                     <li
                       style="white-space: nowrap;"
                       v-for="(k, v) in cocktail.ingredients"
-                      v-bind:key="v"
-                    >{{v}} : {{ k }}</li>
+                      v-bind:key="k"
+                    >{{k}} : {{ v }}</li>
                   </ul>
                 </td>
               </tr>
@@ -47,7 +47,7 @@
                 </td >
                 <td v-if="this.$store.state.averageRating.sumRating == 0">No Ratings yet!
                 </td>
-                <td v-if="this.$store.state.averageRating.sumRating > 0"><span class="pink--text display-1">{{averageRating.averageRating}} </span> from <span class="pink--text display-1">{{averageRating.sumRating}} </span>vote
+                <td v-if="this.$store.state.averageRating.sumRating > 0"><span  class="display-1">{{averageRating.averageRating}} </span> from <span class="display-1">{{averageRating.sumRating}} </span>vote
                 </td>
               </tr>
             </tbody>
@@ -69,8 +69,8 @@
             <tr>
               <td width="400%">
                 <v-form align="center" ref="form" width="400">
-                  <v-rating v-model="rating" background-color="pink lighten-3" color="pink" medium></v-rating>
-                  <v-btn color="pink" class="mr-2" @click="sendRating()">Rate</v-btn>
+                  <v-rating v-model="rating" background-color=#ff66c4  color=#ff66c4  medium></v-rating>
+                  <v-btn color=#ff66c4 class="mr-2" @click="sendRating()">Rate</v-btn>
                   <v-text-field v-model="comment" label="Your Comment"></v-text-field>
                 </v-form>
               </td>
@@ -87,8 +87,8 @@
                     <td>
                       <v-rating
                         :value="rating.rating"
-                        background-color="pink lighten-3"
-                        color="pink"
+                        background-color=#ff66c4 
+                        color=#ff66c4 
                         small
                         readonly
                       ></v-rating>
@@ -170,4 +170,10 @@ export default {
 };
 </script>
 
+<style scoped>
   
+span{
+  color:#ff66c4 
+}
+
+  </style>
