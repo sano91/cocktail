@@ -44,8 +44,10 @@
               <tr>
                 <td>
                   Rating: 
-                </td  > 
-                <td><span class="pink--text display-1">{{averageRating.averageRating}} </span> from <span class="pink--text display-1">{{averageRating.sumRating}} </span>vote
+                </td > 
+                <td v-if="this.$store.state.averageRating.sumRating == 0">No Ratings yet!
+                </td>
+                <td v-if="this.$store.state.averageRating.sumRating > 0"><span class="pink--text display-1">{{averageRating.averageRating}} </span> from <span class="pink--text display-1">{{averageRating.sumRating}} </span>vote
                 </td>
               </tr>
             </tbody>
