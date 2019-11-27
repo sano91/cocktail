@@ -2,7 +2,7 @@
   <v-app id="inspire">
     <v-navigation-drawer v-model="drawer" app clipped>
       <v-list dense>
-        <v-img src="../src/assets/realLogo.png" max-height="80" aspect-ratio="1" max-width="auto"></v-img>
+        <v-img src="../src/assets/realreal.png" max-height="80" aspect-ratio="1" max-width="auto"></v-img>
         <v-list-item v-for="item in items" :key="item.text">
           <v-btn @click="gotoFilter" absolute color="transparent" depressed>
             <v-list-item-action>
