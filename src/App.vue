@@ -22,11 +22,11 @@
       </v-list>
     </v-navigation-drawer>
 
-    <v-app-bar app clipped-left color="pink" dense>
+    <v-app-bar app clipped-left color=#ff66c4 dense>
       <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
       <v-icon class="mx-4">fab fa-youtube</v-icon>
       <v-toolbar-title class="mr-12 align-center">
-        <span class="title">Welcome {{username}}</span>
+        <span class="title">Welcome {{username}}!</span>
       </v-toolbar-title>
       <v-spacer></v-spacer>
       <div v-if="userNameInStorage() === true ">
@@ -66,7 +66,6 @@ export default {
   created() {
     this.$vuetify.theme.dark = true;
     this.username = window.localStorage.getItem("username");
-
   },
   computed: {
     user() {
