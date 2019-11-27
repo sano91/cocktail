@@ -2,7 +2,7 @@
   <v-app id="inspire">
     <v-navigation-drawer v-model="drawer" app clipped>
       <v-list dense>
-        <v-img src="../src/assets/realLogo.png" max-height="80" aspect-ratio="1" max-width="auto"></v-img>
+        <v-img src="../src/assets/realreal.png" max-height="80" aspect-ratio="1" max-width="auto"></v-img>
         <v-list-item v-for="item in items" :key="item.text">
           <v-btn @click="gotoFilter" absolute color="transparent" depressed>
             <v-list-item-action>
@@ -26,18 +26,18 @@
       <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
       <v-icon class="mx-4">fab fa-youtube</v-icon>
       <v-toolbar-title class="mr-12 align-center">
-        <span class="title">Welcome {{username}}</span>
+        <span id="welcome" class="title">Welcome {{username}}</span>
       </v-toolbar-title>
       <v-spacer></v-spacer>
       <div v-if="userNameInStorage() === true ">
-      <v-btn text large to="/">Home</v-btn>
-      <v-btn text large to="/about">About</v-btn>
-      <v-btn @click="logout" text large>Log out</v-btn>
+        <v-btn text large to="/">Home</v-btn>
+        <v-btn text large to="/about">About</v-btn>
+        <v-btn @click="logout" text large>Log out</v-btn>
       </div>
-        <div v-if="userNameInStorage()  === false " >
-      <v-btn @click="signInForm" text large to="/sign-in">Sign up</v-btn>
-      <v-btn @click="loginForm" text large to="/login">Login</v-btn>
-     </div>
+      <div v-if="userNameInStorage()  === false ">
+        <v-btn @click="signInForm" text large to="/sign-in">Sign up</v-btn>
+        <v-btn @click="loginForm" text large to="/login">Login</v-btn>
+      </div>
     </v-app-bar>
     <v-content>
       <router-view />
@@ -66,12 +66,11 @@ export default {
   created() {
     this.$vuetify.theme.dark = true;
     this.username = window.localStorage.getItem("username");
-
   },
   computed: {
     user() {
       return this.$store.state.user;
-    },
+    }
   },
   methods: {
     updateMessage(variable) {
@@ -91,13 +90,20 @@ export default {
       window.localStorage.removeItem("username");
       location.reload();
     },
-    userNameInStorage(){
-      if(window.localStorage.getItem("username") === null){
+    userNameInStorage() {
+      if (window.localStorage.getItem("username") === null) {
         return false;
-      }else{
+      } else {
         return true;
       }
-     }
+    }
   }
 };
 </script>
+<style scoped>
+#welcome {
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif !important;
+  letter-spacing: 0.3rem !important;
+}
+</style>
