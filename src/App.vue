@@ -29,11 +29,15 @@
         <span class="title">Welcome {{username}}</span>
       </v-toolbar-title>
       <v-spacer></v-spacer>
-      <v-btn @click="signInForm" text large to="/sign-in">Sign up</v-btn>
-      <v-btn @click="loginForm" text large to="/login">Login</v-btn>
+      <div v-if="userNameInStorage() === true ">
       <v-btn text large to="/">Home</v-btn>
       <v-btn text large to="/about">About</v-btn>
       <v-btn @click="logout" text large>Log out</v-btn>
+      </div>
+        <div v-if="userNameInStorage()  === false " >
+      <v-btn @click="signInForm" text large to="/sign-in">Sign up</v-btn>
+      <v-btn @click="loginForm" text large to="/login">Login</v-btn>
+     </div>
     </v-app-bar>
     <v-content>
       <router-view />
@@ -62,11 +66,12 @@ export default {
   created() {
     this.$vuetify.theme.dark = true;
     this.username = window.localStorage.getItem("username");
+
   },
   computed: {
     user() {
       return this.$store.state.user;
-    }
+    },
   },
   methods: {
     updateMessage(variable) {
@@ -85,7 +90,14 @@ export default {
       window.localStorage.removeItem("token");
       window.localStorage.removeItem("username");
       location.reload();
-    }
+    },
+    userNameInStorage(){
+      if(window.localStorage.getItem("username") === null){
+        return false;
+      }else{
+        return true;
+      }
+     }
   }
 };
 </script>
