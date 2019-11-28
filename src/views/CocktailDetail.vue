@@ -37,17 +37,21 @@
                       style="white-space: nowrap;"
                       v-for="(k, v) in cocktail.ingredients"
                       v-bind:key="v"
-                    >{{v}} : {{ k }}</li>
+                    >
+                      <span class="ingredient ff">{{v}}</span>
+                      <span class="ingredient ff">:</span>
+                      <span class="ingredient" v-if="k !== 'null'">{{ k }}</span>
+                      <span v-else class="ingredient">As You wish</span>
+                    </li>
                   </ul>
                 </td>
               </tr>
               <tr>
-                <td>
-                  Rating: 
-                </td >
-                <td v-if="this.$store.state.averageRating.sumRating == 0">No Ratings yet!
-                </td>
-                <td v-if="this.$store.state.averageRating.sumRating > 0"><span  class="display-1">{{averageRating.averageRating}} </span> from <span class="display-1">{{averageRating.sumRating}} </span>vote
+                <td>Rating:</td>
+                <td v-if="this.$store.state.averageRating.sumRating == 0">No Ratings yet!</td>
+                <td v-if="this.$store.state.averageRating.sumRating > 0">
+                  <span class="display-1">{{averageRating.averageRating}}</span> from
+                  <span class="display-1">{{averageRating.sumRating}}</span>vote
                 </td>
               </tr>
             </tbody>
@@ -69,8 +73,8 @@
             <tr>
               <td width="400%">
                 <v-form align="center" ref="form" width="400">
-                  <v-rating v-model="rating" background-color=#ff66c4  color=#ff66c4  medium></v-rating>
-                  <v-btn color=#ff66c4 class="mr-2" @click="sendRating()">Rate</v-btn>
+                  <v-rating v-model="rating" background-color="#ff66c4" color="#ff66c4" medium></v-rating>
+                  <v-btn color="#ff66c4" class="mr-2" @click="sendRating()">Rate</v-btn>
                   <v-text-field v-model="comment" label="Your Comment"></v-text-field>
                 </v-form>
               </td>
@@ -87,8 +91,8 @@
                     <td>
                       <v-rating
                         :value="rating.rating"
-                        background-color=#ff66c4 
-                        color=#ff66c4 
+                        background-color="#ff66c4"
+                        color="#ff66c4"
                         small
                         readonly
                       ></v-rating>
@@ -171,9 +175,14 @@ export default {
 </script>
 
 <style scoped>
-  
-span{
-  color:#ff66c4 
+span {
+  color: #ff66c4;
 }
-
-  </style>
+.ingredient {
+  color: white;
+  padding-left: 1rem;
+}
+.ff {
+  padding-left: 0.2rem !important;
+}
+</style>

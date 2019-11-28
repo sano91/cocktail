@@ -26,6 +26,7 @@ export default {
   },
   created() {
     this.$store.dispatch("getCocktailNames");
+    window.localStorage.setItem("token", this.$store.state.token);
   },
   computed: {
     cocktails() {

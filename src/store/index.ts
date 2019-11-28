@@ -13,7 +13,8 @@ export default new Vuex.Store({
   ratings:[],
   averageRating: {},
   allCocktailNames : [],
-  ingredientCocktails: []
+  ingredientCocktails: [],
+  token: "",
   },
   mutations: {
     setCocktailNames(state, names){
@@ -26,7 +27,7 @@ export default new Vuex.Store({
       state.signResult = result
     },
     setToken(state, token){
-      window.localStorage.setItem("token", token);
+      state.token = token
     },
     setUser(state, user){
       state.user = user
@@ -139,7 +140,7 @@ export default new Vuex.Store({
 
         },
        })
-       .then(respond => (context.commit("setToken", respond.data.token)));
+       .then(respond => (context.commit("setToken", respond.data.token),console.log(respond.data.token)));
      },
      getUserName(context, username){
         window.localStorage.setItem("username", username);

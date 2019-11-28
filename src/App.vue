@@ -58,7 +58,11 @@ export default {
     drawer: null,
     items: [
       { icon: "mdi-fridge-outline", text: "Check Fridge" },
-      { icon: "mdi-glass-cocktail", text: "Add Cocktail" }
+      { icon: "mdi-glass-cocktail", text: "Add Cocktail" },
+      { icon: "mdi-account", text: "Account" },
+      { icon: "mdi-flask-outline", text: "Lab" },
+      { icon: "mdi-youtube-tv", text: "Videos" },
+      { icon: "mdi-charity", text: "Charity" }
     ],
     items2: []
   }),
