@@ -45,7 +45,6 @@ export default {
   created() {
     this.$store.dispatch("getCocktailNames");
    this.$store.dispatch("getNamesAndPictures");
-
   },
   computed: {
     cocktails() {

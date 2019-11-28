@@ -7,7 +7,7 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     cocktail :{},
-    signResult: {},
+    signResult: false,
   user: " ",
   ratingResult:"",
   ratings:[],
@@ -149,18 +149,14 @@ export default new Vuex.Store({
          headers: {
           "Access-Control-Allow-Origin" : "*",
           "Access-Control-Allow-Methods": "DELETE, POST, GET, OPTIONS",
-        "Content-Type" :  "application/json",
+          "Content-Type" :  "application/json",
           "cache-control": "no-cache",
           "Authorization" : "Bearer " + window.localStorage.getItem("token"),
           "Access-Control-Allow-Headers": "Origin, Content-Type, X-Auth-Token",
         },
        })
        .then(respond => (context.commit("setToken", respond.data.token)))
-       .finally(() => {window.location.href = "/";
-      });
-      
-       
-
+       .finally(() =>  window.location.href = "/");        
      },
      getUserName(context, username){
        
@@ -179,7 +175,8 @@ export default new Vuex.Store({
          "Access-Control-Allow-Headers": "Origin, Content-Type, X-Auth-Token",
        },
       })
-      .then(respond => (context.commit("setRatingResult", respond.data)));
+      .then(respond => (context.commit("setRatingResult", respond.data)))
+      
     },
     getIngredientsCocktails(context, ingredients){
       axios({

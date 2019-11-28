@@ -1,8 +1,12 @@
 <template>
   <v-form ref="form" v-model="valid" lazy-validation>
-    <v-text-field v-model="name" :counter="20" :rules="nameRules" label="Name" required></v-text-field>
+      <v-row justify="center">
+    <v-col cols="12" sm="10" md="8" lg="10">
+    <v-text-field v-model="name" :counter="20" :rules="nameRules" label="Name" required>
+    </v-text-field>
 
     <v-text-field
+
       v-model="password"
       :append-icon="show1 ? items[0].icon1 : items[1].icon2"
       :rules="[rules.required, rules.min]"
@@ -10,6 +14,7 @@
       name="input-10-1"
       label="Password"
       hint="At least 8 characters"
+      cols=12
       counter
       @click:append="show1 = !show1"
       required
@@ -29,6 +34,8 @@
         </v-card-actions>
       </v-card>
     </v-dialog>
+    </v-col>
+      </v-row>
   </v-form>
 </template>
 
