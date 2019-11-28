@@ -13,7 +13,8 @@ export default new Vuex.Store({
   ratings:[],
   averageRating: {},
   allCocktailNames : [],
-  ingredientCocktails: []
+  ingredientCocktails: [],
+  namesAndPictures: [],
   },
   mutations: {
     setCocktailNames(state, names){
@@ -47,7 +48,10 @@ export default new Vuex.Store({
     setIngredientCocktails(state, cocktails){
       console.log("This one is filtered ingredients cocktails: " + cocktails)
       state.ingredientCocktails = cocktails;
-    }
+    },
+    setNamesAndPicturs(state, namesAndPics){
+      state.namesAndPictures  = namesAndPics;
+    },
   },
   actions: {
     getCocktailNames(context){
@@ -63,7 +67,20 @@ export default new Vuex.Store({
       }
       })
       .then(ret => (context.commit ("setCocktailNames",ret.data)));
-
+    },
+    getNamesAndPictures(context){
+      axios({ 
+        method:"get",
+        url: "http://0.0.0.0:8080/names-pictures",
+        headers:{
+       "Authorization": "Bearer " + window.localStorage.getItem("token"),
+       "Access-Control-Allow-Origin" : "*",
+       "Content-Type" :  "application/json",
+        "cache-control": "no-cache",
+        "Access-Control-Allow-Headers": "Origin, Content-Type, X-Auth-Token",
+      }
+      })
+      .then(ret => (context.commit ("setNamesAndPicturs",ret.data)));
     },
      getCocktailByName(context, name  ){
        axios({ 
