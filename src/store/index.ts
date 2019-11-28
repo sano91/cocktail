@@ -153,12 +153,17 @@ export default new Vuex.Store({
           "cache-control": "no-cache",
           "Authorization" : "Bearer " + window.localStorage.getItem("token"),
           "Access-Control-Allow-Headers": "Origin, Content-Type, X-Auth-Token",
-
         },
        })
-       .then(respond => (context.commit("setToken", respond.data.token)));
+       .then(respond => (context.commit("setToken", respond.data.token)))
+       .finally(() => {window.location.href = "/";
+      });
+      
+       
+
      },
      getUserName(context, username){
+       
         window.localStorage.setItem("username", username);
     },
      sendRating(context, rating){

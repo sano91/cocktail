@@ -108,8 +108,8 @@ export default {
       });
       this.$nextTick(function() {
         if (this.signResult) {
-          this.$router.push("/");
-        } else {
+          this.$router.push("/login");
+        } else {  
           this.dialog = true;
         }
       });
