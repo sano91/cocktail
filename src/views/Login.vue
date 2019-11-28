@@ -73,7 +73,6 @@ export default {
         username: this.name,
         password: this.password
       });
-      window.localStorage.setItem("token");
     }
   }
 };
