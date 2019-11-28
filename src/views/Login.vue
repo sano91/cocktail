@@ -68,13 +68,12 @@ export default {
   }),
   methods: {
     loginBtnFunc() {
-      this.$router.push("/");
       this.$store.dispatch("getUserName", this.name);
       this.$store.dispatch("sendLogin", {
         username: this.name,
         password: this.password
       });
-      location.reload();
+      window.localStorage.setItem("token");
     }
   }
 };

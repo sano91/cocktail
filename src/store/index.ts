@@ -7,14 +7,14 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     cocktail :{},
-    signResult: {},
+    signResult: false,
   user: " ",
   ratingResult:"",
   ratings:[],
   averageRating: {},
   allCocktailNames : [],
   ingredientCocktails: [],
-  token: "",
+  namesAndPictures: [],
   },
   mutations: {
     setCocktailNames(state, names){
@@ -27,7 +27,7 @@ export default new Vuex.Store({
       state.signResult = result
     },
     setToken(state, token){
-      state.token = token
+      window.localStorage.setItem("token", token);
     },
     setUser(state, user){
       state.user = user
@@ -48,7 +48,10 @@ export default new Vuex.Store({
     setIngredientCocktails(state, cocktails){
       console.log("This one is filtered ingredients cocktails: " + cocktails)
       state.ingredientCocktails = cocktails;
-    }
+    },
+    setNamesAndPicturs(state, namesAndPics){
+      state.namesAndPictures  = namesAndPics;
+    },
   },
   actions: {
     getCocktailNames(context){
@@ -64,7 +67,20 @@ export default new Vuex.Store({
       }
       })
       .then(ret => (context.commit ("setCocktailNames",ret.data)));
-
+    },
+    getNamesAndPictures(context){
+      axios({ 
+        method:"get",
+        url: "http://0.0.0.0:8080/names-pictures",
+        headers:{
+       "Authorization": "Bearer " + window.localStorage.getItem("token"),
+       "Access-Control-Allow-Origin" : "*",
+       "Content-Type" :  "application/json",
+        "cache-control": "no-cache",
+        "Access-Control-Allow-Headers": "Origin, Content-Type, X-Auth-Token",
+      }
+      })
+      .then(ret => (context.commit ("setNamesAndPicturs",ret.data)));
     },
      getCocktailByName(context, name  ){
        axios({ 
@@ -133,14 +149,15 @@ export default new Vuex.Store({
          headers: {
           "Access-Control-Allow-Origin" : "*",
           "Access-Control-Allow-Methods": "DELETE, POST, GET, OPTIONS",
-        "Content-Type" :  "application/json",
+          "Content-Type" :  "application/json",
           "cache-control": "no-cache",
           "Authorization" : "Bearer " + window.localStorage.getItem("token"),
           "Access-Control-Allow-Headers": "Origin, Content-Type, X-Auth-Token",
 
         },
        })
-       .then(respond => (context.commit("setToken", respond.data.token),console.log(respond.data.token)));
+       .then(respond => (context.commit("setToken", respond.data.token)))
+       .finally(() =>  window.location.href = "/");        
      },
      getUserName(context, username){
         window.localStorage.setItem("username", username);
@@ -158,7 +175,8 @@ export default new Vuex.Store({
          "Access-Control-Allow-Headers": "Origin, Content-Type, X-Auth-Token",
        },
       })
-      .then(respond => (context.commit("setRatingResult", respond.data)));
+      .then(respond => (context.commit("setRatingResult", respond.data)))
+      
     },
     getIngredientsCocktails(context, ingredients){
       axios({
