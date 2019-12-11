@@ -1,5 +1,10 @@
 <template >
   <v-container>
+     <v-icon color="#ff66c4" @click="displayInfo">mdi-information-outline</v-icon>
+    <div id="myDIV" >
+      Choose ingredients from the dropdown menu below to filter cocktails,
+      you can delete the chosen ingredient by clicking on them!
+      </div>
     <v-autocomplete
       @change="addToList"
       label="Add ingredient"
@@ -41,7 +46,7 @@ export default {
     return {
       value: "",
       ingredients: [],
-      choosedIngredients: []
+      choosedIngredients: [],
     };
   },
 
@@ -53,6 +58,14 @@ export default {
     }
   },
   methods: {
+    displayInfo() {
+      let x = document.getElementById("myDIV");
+      if (x.style.display === "block") {
+        x.style.display = "none";
+      } else {
+        x.style.display = "block";
+      }
+    },
     goDetailes(name) {
       this.$router.push(`/cocktail/` + name);
     },
@@ -110,4 +123,9 @@ export default {
   display: inline-block;
   margin: 1rem !important;
 }
+
+#myDIV{
+  display:none
+}
+
 </style>

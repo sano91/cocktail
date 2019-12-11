@@ -2,7 +2,7 @@
   <v-container fluid ma-0 pa-0 fill-height>
     <v-layout row>
       <v-flex md6>
-        <v-simple-table dark height="600">
+        <v-simple-table dark height="auto">
           <template width="400">
             <tbody width="300">
               <tr>
@@ -64,7 +64,7 @@
           aspect-ratio="1"
           class="grey lighten-2"
           max-width="auto"
-          max-height="600"
+          max-height="auto"
         ></v-img>
       </v-flex>
       <v-flex>
@@ -171,8 +171,11 @@ export default {
         userName: this.userName
       });
       console.log(this.userName, this.rating, this.cocktail.name, this.comment);
-      this.$refs.form.reset();
-      location.reload();
+      console.log(this.$store.ratingResult);
+      if (this.$store.ratingResult){
+       this.$refs.form.reset();
+        location.reload();
+      }
     }
   }
 };
@@ -186,7 +189,12 @@ span {
   color: white;
   padding-left: 1rem;
 }
+
 .ff {
   padding-left: 0.2rem !important;
+}
+
+td{
+  font-size: 105%
 }
 </style>

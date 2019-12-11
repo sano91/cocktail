@@ -1,5 +1,6 @@
 <template>
   <v-app id="inspire">
+     <div v-if="userNameInStorage() === true ">
     <v-navigation-drawer v-model="drawer" app clipped>
       <v-list dense>
         <v-img src="../src/assets/realreal.png" max-height="80" aspect-ratio="1" max-width="auto"></v-img>
@@ -21,12 +22,18 @@
         </v-list>
       </v-list>
     </v-navigation-drawer>
+     </div>
 
     <v-app-bar app clipped-left color="#ff66c4" dense>
       <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
       <v-icon class="mx-4">fab fa-youtube</v-icon>
       <v-toolbar-title class="mr-12 align-center">
+        <div v-if="userNameInStorage() === true ">
         <span id="welcome" class="title">Welcome {{username}}</span>
+        </div>
+         <div v-if="userNameInStorage() === false ">
+        <span  >You have to Log in to use Cocktail Party</span>
+        </div>
       </v-toolbar-title>
       <v-spacer></v-spacer>
       <div v-if="userNameInStorage() === true ">
@@ -93,6 +100,7 @@ export default {
       window.localStorage.removeItem("token");
       window.localStorage.removeItem("username");
       this.$router.push('/login')
+      window.location.reload();
     },
     userNameInStorage() {
       if (window.localStorage.getItem("username") === null) {
