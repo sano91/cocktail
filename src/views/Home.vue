@@ -7,7 +7,7 @@
       <v-card
         @click="goDetails(cocktail.name)"
         class="mx-auto"
-        max-width="240"
+        max-width="200"
         v-for="cocktail in namesAndPictures"
         :key="cocktail.name"
       >
@@ -60,5 +60,9 @@ export default {
 .mx-auto {
   display: inline-block;
   margin: 1rem !important;
+  margin-right: 4rem !important;
+  margin-left: 5rem !important;
+  margin-inline: 5rem !important;
+  margin-block: 4rem !important;
 }
 </style>
