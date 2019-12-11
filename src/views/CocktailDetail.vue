@@ -171,11 +171,8 @@ export default {
         userName: this.userName
       });
       console.log(this.userName, this.rating, this.cocktail.name, this.comment);
-      console.log(this.$store.ratingResult);
-      if (this.$store.ratingResult){
-       this.$refs.form.reset();
-        location.reload();
-      }
+      this.$refs.form.reset();
+     location.reload(); 
     }
   }
 };

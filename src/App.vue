@@ -99,11 +99,7 @@ export default {
     logout() {
       window.localStorage.removeItem("token");
       window.localStorage.removeItem("username");
-<<<<<<< HEAD
-      this.$router.push('/login')
-=======
       this.$router.push("/login");
->>>>>>> sanoVariabe
       window.location.reload();
     },
     userNameInStorage() {

@@ -108,7 +108,8 @@ export default {
 <style scoped>
 .ingredient {
   display: inline-block;
-  font-weight: 300;
+  font-weight: 500;
+  font-size: 150%;
   color: sandybrown;
   margin-right: 1rem;
   margin-left: 1rem;
