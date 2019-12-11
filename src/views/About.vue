@@ -11,7 +11,6 @@
 
 <script>
 export default {
-  name: "home",
-  components: {}
+  name: "about"
 };
 </script>

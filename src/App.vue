@@ -92,7 +92,8 @@ export default {
     logout() {
       window.localStorage.removeItem("token");
       window.localStorage.removeItem("username");
-      location.reload();
+      this.$router.push("/login");
+      window.location.reload();
     },
     userNameInStorage() {
       if (window.localStorage.getItem("username") === null) {

@@ -1,5 +1,7 @@
 <template>
   <v-form ref="form" v-model="valid" lazy-validation>
+     <v-row justify="center">
+    <v-col cols="12" sm="10" md="8" lg="10">
     <v-text-field v-model="name" :counter="20" :rules="nameRules" label="Name" required></v-text-field>
 
     <v-text-field v-model="email" :rules="emailRules" label="E-mail" required></v-text-field>
@@ -40,6 +42,8 @@
         </v-card-actions>
       </v-card>
     </v-dialog>
+    </v-col>
+     </v-row>
   </v-form>
 </template>
 
@@ -48,50 +52,48 @@ import { mdiEyeOffOutline, mdiEyeOutline } from "@mdi/js";
 
 export default {
   name: "sign",
-  data: () => ({
-    show1: false,
-    dialog: false,
-    signResult: false,
+  data: function() {
+    return {
+      show1: false,
+      dialog: false,
+      signResult: true,
 
-    valid: true,
-    items: [
-      { icon1: "mdi-eye-off-outline", text: "visibility_off" },
-      { icon2: "mdi-eye-outline", text: "visibility" }
-    ],
+      valid: true,
+      items: [
+        { icon1: "mdi-eye-off-outline", text: "visibility_off" },
+        { icon2: "mdi-eye-outline", text: "visibility" }
+      ],
 
-    // form: {
-    //   name: this. name,
-    //   email: this.email,
-    //   password: this.password,
-    // },
+      // form: {
+      //   name: this. name,
+      //   email: this.email,
+      //   password: this.password,
+      // },
 
-    password: "",
-    rules: {
-      required: value => !!value || "Required.",
-      min: v => v.length >= 8 || "Min 8 characters",
-      emailMatch: () => "The email and password you entered don't match"
-    },
-    name: "",
-    nameRules: [
-      v => !!v || "Name is required",
-      v => (v && v.length <= 20) || "Name must be less than 20 characters"
-    ],
-    email: "",
-    emailRules: [
-      v => !!v || "E-mail is required",
-      v => /.+@.+\..+/.test(v) || "E-mail must be valid"
-    ],
+      password: "",
+      rules: {
+        required: value => !!value || "Required.",
+        min: v => v.length >= 8 || "Min 8 characters",
+        emailMatch: () => "The email and password you entered don't match"
+      },
+      name: "",
+      nameRules: [
+        v => !!v || "Name is required",
+        v => (v && v.length <= 20) || "Name must be less than 20 characters"
+      ],
+      email: "",
+      emailRules: [
+        v => !!v || "E-mail is required",
+        v => /.+@.+\..+/.test(v) || "E-mail must be valid"
+      ],
 
-    checkbox: false,
-    lazy: false
-  }),
-  computed: {
-    signResult() {
-      return this.$state.signResult;
-    }
+      checkbox: false,
+      lazy: false
+    };
   },
+
   watch: {
-    firstName: function() {
+    signResult: function() {
       this.signResult = this.$state.signResult;
     }
   },
@@ -112,7 +114,13 @@ export default {
         mail: this.email,
         password: this.password
       });
-      this.$router.push("/");
+      this.$nextTick(function() {
+        if (this.signResult) {
+          this.$router.push("/login");
+        } else {  
+          this.dialog = true;
+        }
+      });
     }
   }
 };
