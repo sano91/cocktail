@@ -2,7 +2,7 @@
   <v-container fluid ma-0 pa-0 fill-height>
     <v-layout row>
       <v-flex md6>
-        <v-simple-table dark height="auto">
+        <v-simple-table dark fill-height>
           <template width="400">
             <tbody width="300">
               <tr>
@@ -172,7 +172,7 @@ export default {
       });
       console.log(this.userName, this.rating, this.cocktail.name, this.comment);
       this.$refs.form.reset();
-     location.reload();
+      location.reload();
     }
   }
 };
@@ -191,7 +191,7 @@ span {
   padding-left: 0.2rem !important;
 }
 
-td{
-  font-size: 105%
+td {
+  font-size: 105%;
 }
 </style>
