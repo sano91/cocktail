@@ -64,12 +64,6 @@ export default {
         { icon2: "mdi-eye-outline", text: "visibility" }
       ],
 
-      // form: {
-      //   name: this. name,
-      //   email: this.email,
-      //   password: this.password,
-      // },
-
       password: "",
       rules: {
         required: value => !!value || "Required.",

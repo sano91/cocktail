@@ -4,10 +4,12 @@
     <v-autocomplete label="Choose coktail" :items="cocktails" v-model="value" filled rounded></v-autocomplete>
     <v-btn justify-center @click="goTo">Check cocktail</v-btn>
   </v-container>
+<div class="cards">
       <v-card
         @click="goDetails(cocktail.name)"
         class="mx-auto"
-        max-width="200"
+        style="margin: 1rem !important"
+        max-width="280"
         v-for="cocktail in namesAndPictures"
         :key="cocktail.name"
       >
@@ -17,6 +19,7 @@
           <v-spacer></v-spacer>
         </v-card-actions>
       </v-card>
+    </div>
     </div>
 </template>
 
@@ -57,12 +60,15 @@ export default {
 };
 </script>
 <style scoped>
+
+.cards {
+  margin-left: 2%;
+}
+
 .mx-auto {
   display: inline-block;
   margin: 1rem !important;
-  margin-right: 4rem !important;
-  margin-left: 5rem !important;
-  margin-inline: 5rem !important;
-  margin-block: 4rem !important;
-}
+  margin-right: 30px !important;
+ }
+
 </style>

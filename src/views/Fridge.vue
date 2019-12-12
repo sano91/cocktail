@@ -1,18 +1,18 @@
 <template >
   <v-container>
-     <v-icon color="#ff66c4" @click="displayInfo">mdi-information-outline</v-icon>
+    
     <div id="myDIV" >
       Choose ingredients from the dropdown menu below to filter cocktails,
       you can delete the chosen ingredient by clicking on them!
       </div>
-    <v-autocomplete
+    <v-autocomplete class="searchbar"
       @change="addToList"
       label="Add ingredient"
       :items="ingredients"
       v-model="value"
       filled
       rounded
-    ></v-autocomplete>
+    ></v-autocomplete> <v-icon class="icon" color="#ff66c4" medium @click="displayInfo">mdi-information-outline</v-icon>
     <div
       class="ingredient"
       @click="deleteIngredient(ingredient)"
@@ -123,6 +123,15 @@ export default {
 .mx-auto {
   display: inline-block;
   margin: 1rem !important;
+}
+
+.searchbar {
+  display: inline-block;
+  width:97% ;
+}
+
+.icon {
+  display: inline;
 }
 
 #myDIV{

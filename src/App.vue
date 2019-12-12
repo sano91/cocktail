@@ -5,7 +5,7 @@
       <v-list dense>
         <v-img src="../src/assets/realreal.png" max-height="80" aspect-ratio="1" max-width="auto"></v-img>
         <v-list-item v-for="item in items" :key="item.text">
-          <v-btn @click="gotoFilter" absolute color="transparent" depressed>
+          <v-btn @click="gotoRoute(item.route)" absolute color="transparent" depressed>     
             <v-list-item-action>
               <v-icon>{{ item.icon }}</v-icon>
             </v-list-item-action>
@@ -64,8 +64,8 @@ export default {
   data: () => ({
     drawer: null,
     items: [
-      { icon: "mdi-fridge-outline", text: "Check Fridge" },
-      { icon: "mdi-glass-cocktail", text: "Add Cocktail" },
+      { icon: "mdi-fridge-outline", text: "Check Fridge", route:"fridge"},
+      { icon: "mdi-glass-cocktail", text: "Add Cocktail", route:"addCocktail" },
       { icon: "mdi-account", text: "Account" },
       { icon: "mdi-flask-outline", text: "Lab" },
       { icon: "mdi-youtube-tv", text: "Videos" },
@@ -93,14 +93,13 @@ export default {
     loginForm() {
       this.$router.push("/login");
     },
-    gotoFilter() {
-      this.$router.push("/fridge");
+    gotoRoute(route) {
+      this.$router.push("/" + route);
     },
     logout() {
       window.localStorage.removeItem("token");
       window.localStorage.removeItem("username");
       this.$router.push("/login");
-      window.location.reload();
     },
     userNameInStorage() {
       if (window.localStorage.getItem("username") === null) {

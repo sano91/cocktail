@@ -74,7 +74,7 @@
               <td width="400%">
                 <v-form align="center" ref="form" width="400">
                   <v-rating v-model="rating" background-color="#ff66c4" color="#ff66c4" medium></v-rating>
-                  <v-btn color="#ff66c4" class="mr-2" @click="sendRating()">Rate</v-btn>
+                  <v-btn color="#ff66c4" class="mr-2" @click="sendRating()">Send Rating & Comment</v-btn>
                    <v-row justify="center">
                    <v-col cols="12" sm="10" md="8" lg="11">
                   <v-text-field v-model="comment" label="Your Comment"></v-text-field>
