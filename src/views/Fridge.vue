@@ -1,11 +1,11 @@
 <template >
   <v-container>
-     <v-icon color="#ff66c4" @click="displayInfo">mdi-information-outline</v-icon>
-    <div id="myDIV" >
+    <div id="myDIV">
       Choose ingredients from the dropdown menu below to filter cocktails,
       you can delete the chosen ingredient by clicking on them!
-      </div>
+    </div>
     <v-autocomplete
+      class="searchbar"
       @change="addToList"
       label="Add ingredient"
       :items="ingredients"
@@ -13,6 +13,9 @@
       filled
       rounded
     ></v-autocomplete>
+    <v-icon class="icon" color="#ff66c4" medium @click="displayInfo">mdi-information-outline</v-icon>
+    <span id="currentFilter">Choosed ingredients:</span>
+
     <div
       class="ingredient"
       @click="deleteIngredient(ingredient)"
@@ -46,7 +49,7 @@ export default {
     return {
       value: "",
       ingredients: [],
-      choosedIngredients: [],
+      choosedIngredients: []
     };
   },
 
@@ -70,6 +73,8 @@ export default {
       this.$router.push(`/cocktail/` + name);
     },
     addToList() {
+      let current = document.getElementById("currentFilter");
+      current.style.display = "inline-block";
       this.choosedIngredients.push(this.value);
       this.$store.dispatch("getIngredientsCocktails", {
         ingredients: this.choosedIngredients
@@ -108,7 +113,8 @@ export default {
 <style scoped>
 .ingredient {
   display: inline-block;
-  font-weight: 300;
+  font-weight: 500;
+  font-size: 150%;
   color: sandybrown;
   margin-right: 1rem;
   margin-left: 1rem;
@@ -124,8 +130,20 @@ export default {
   margin: 1rem !important;
 }
 
-#myDIV{
-  display:none
+.searchbar {
+  display: inline-block;
+  width: 97%;
 }
 
+.icon {
+  display: inline;
+}
+
+#myDIV {
+  display: none;
+}
+
+#currentFilter {
+  display: none;
+}
 </style>

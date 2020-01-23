@@ -1,13 +1,15 @@
 <template>
-<div>
-  <v-container>
-    <v-autocomplete label="Choose coktail" :items="cocktails" v-model="value" filled rounded></v-autocomplete>
-    <v-btn justify-center @click="goTo">Check cocktail</v-btn>
-  </v-container>
+  <div>
+    <v-container>
+      <v-autocomplete label="Choose coktail" :items="cocktails" v-model="value" filled rounded></v-autocomplete>
+      <v-btn justify-center @click="goTo">Check cocktail</v-btn>
+    </v-container>
+    <div class="cards">
       <v-card
         @click="goDetails(cocktail.name)"
         class="mx-auto"
-        max-width="200"
+        style="margin: 0.8rem !important"
+        max-width="260"
         v-for="cocktail in namesAndPictures"
         :key="cocktail.name"
       >
@@ -18,6 +20,7 @@
         </v-card-actions>
       </v-card>
     </div>
+  </div>
 </template>
 
 <script>
@@ -35,7 +38,7 @@ export default {
     goTo() {
       this.$router.push("/cocktail/" + this.value);
     },
-     goDetails(name) {
+    goDetails(name) {
       this.$router.push(`/cocktail/` + name);
     },
     submit: function() {
@@ -44,25 +47,29 @@ export default {
   },
   created() {
     this.$store.dispatch("getCocktailNames");
-   this.$store.dispatch("getNamesAndPictures");
+    this.$store.dispatch("getNamesAndPictures");
   },
   computed: {
     cocktails() {
       return this.$store.state.allCocktailNames;
     },
-    namesAndPictures(){
+    namesAndPictures() {
       return this.$store.state.namesAndPictures;
     }
   }
 };
 </script>
 <style scoped>
+.cards {
+  margin-left: 2%;
+}
+
 .mx-auto {
   display: inline-block;
-  margin: 1rem !important;
-  margin-right: 4rem !important;
-  margin-left: 5rem !important;
-  margin-inline: 5rem !important;
-  margin-block: 4rem !important;
+  opacity: 0.8;
+  transition: opacity ease-out;
+}
+.mx-auto:hover {
+  opacity: 1;
 }
 </style>

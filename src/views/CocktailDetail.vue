@@ -1,61 +1,59 @@
-<template>
-  <v-container fluid ma-0 pa-0 fill-height>
+<template >
+  <v-container fluid ma-0 pa-0 fill-height id="cocktaildetail">
     <v-layout row>
-      <v-flex md6>
-        <v-simple-table dark fill-height>
-          <template width="400">
-            <tbody width="300">
-              <tr>
-                <td>Name</td>
-                <td>{{ cocktail.name }}</td>
-              </tr>
-              <tr v-if="cocktail.type !== 'null' ">
-                <td>Cocktail Type</td>
-                <td>{{ cocktail.type }}</td>
-              </tr>
-              <tr>
-                <td>Cocktail Category</td>
-                <td>{{ cocktail.category }}</td>
-              </tr>
-              <tr>
-                <td>Alcohol Content</td>
-                <td>{{ cocktail.alcoholContent }}</td>
-              </tr>
-              <tr>
-                <td>Glass type</td>
-                <td>{{ cocktail.glassType }}</td>
-              </tr>
-              <tr>
-                <td>Recipe</td>
-                <td>{{ cocktail.recipe }}</td>
-              </tr>
-              <tr>
-                <td>Ingredients</td>
-                <td>
-                  <ul id="example-2">
-                    <li
-                      style="white-space: nowrap;"
-                      v-for="(k, v) in cocktail.ingredients"
-                      v-bind:key="v"
-                    >
-                      <span class="ingredient ff">{{v}}</span>
-                      <span class="ingredient ff">:</span>
-                      <span class="ingredient" v-if="k !== 'null'">{{ k }}</span>
-                      <span v-else class="ingredient">As You wish</span>
-                    </li>
-                  </ul>
-                </td>
-              </tr>
-              <tr>
-                <td>Rating:</td>
-                <td v-if="this.$store.state.averageRating.sumRating == 0">No Ratings yet!</td>
-                <td v-if="this.$store.state.averageRating.sumRating > 0">
-                  <span class="display-1">{{averageRating.averageRating}}</span> from
-                  <span class="display-1">{{averageRating.sumRating}}</span>vote
-                </td>
-              </tr>
-            </tbody>
-          </template>
+      <v-flex md6 height="800">
+        <v-simple-table dark>
+          <tbody width="300">
+            <tr>
+              <td>Name</td>
+              <td>{{ cocktail.name }}</td>
+            </tr>
+            <tr v-if="cocktail.type !== 'null' ">
+              <td>Cocktail Type</td>
+              <td>{{ cocktail.type }}</td>
+            </tr>
+            <tr>
+              <td>Cocktail Category</td>
+              <td>{{ cocktail.category }}</td>
+            </tr>
+            <tr>
+              <td>Alcohol Content</td>
+              <td>{{ cocktail.alcoholContent }}</td>
+            </tr>
+            <tr>
+              <td>Glass type</td>
+              <td>{{ cocktail.glassType }}</td>
+            </tr>
+            <tr>
+              <td>Recipe</td>
+              <td>{{ cocktail.recipe }}</td>
+            </tr>
+            <tr>
+              <td>Ingredients</td>
+              <td>
+                <ul id="example-2">
+                  <li
+                    style="white-space: nowrap;"
+                    v-for="(k, v) in cocktail.ingredients"
+                    v-bind:key="v"
+                  >
+                    <span class="ingredient ff">{{v}}</span>
+                    <span class="ingredient ff">:</span>
+                    <span class="ingredient" v-if="k !== 'null'">{{ k }}</span>
+                    <span v-else class="ingredient">As You wish</span>
+                  </li>
+                </ul>
+              </td>
+            </tr>
+            <tr>
+              <td>Rating:</td>
+              <td v-if="this.$store.state.averageRating.sumRating == 0">No Ratings yet!</td>
+              <td v-if="this.$store.state.averageRating.sumRating > 0">
+                <span class="display-1">{{averageRating.averageRating}}</span> from
+                <span class="display-1">{{averageRating.sumRating}}</span>vote
+              </td>
+            </tr>
+          </tbody>
         </v-simple-table>
       </v-flex>
       <v-flex md6>
@@ -189,6 +187,10 @@ span {
 
 .ff {
   padding-left: 0.2rem !important;
+}
+
+#cocktaildetail {
+  background-color: #424242;
 }
 
 td {
