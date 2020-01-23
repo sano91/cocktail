@@ -66,10 +66,6 @@ export default {
     items: [
       { icon: "mdi-fridge-outline", text: "Check Fridge", route:"fridge"},
       { icon: "mdi-glass-cocktail", text: "Add Cocktail", route:"addCocktail" },
-      { icon: "mdi-account", text: "Account" },
-      { icon: "mdi-flask-outline", text: "Lab" },
-      { icon: "mdi-youtube-tv", text: "Videos" },
-      { icon: "mdi-charity", text: "Charity" }
     ],
     items2: []
   }),

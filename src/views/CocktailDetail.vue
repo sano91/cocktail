@@ -57,6 +57,16 @@
             </tbody>
           </template>
         </v-simple-table>
+        <v-row justify="center">
+             <v-col justify="center">
+                  <div class="btn-unmarked" >
+                  <v-btn @click="setFavourite()" class="btn-unmarked" color="transparent" depressed><v-icon>mdi-star</v-icon>Mark as Favourite</v-btn>
+                  </div>
+                <div class="btn-marked">
+                <v-btn @click="unSetFavourite" class="btn-marked" color="transparent" depressed><v-icon>mdi-star</v-icon>Marked as Favourite</v-btn>
+                </div>
+             </v-col>
+                </v-row>
       </v-flex>
       <v-flex md6>
         <v-img
@@ -124,6 +134,8 @@ export default {
     comment: ""
   }),
   mounted() {
+    let button = document.querySelector(".btn-marked");
+    button.style.display = "none";
     let currentUrl = window.location.pathname;
     let urlArr = currentUrl.split("/");
     let cocktailArr = urlArr[urlArr.length - 1].split("%20");
@@ -138,7 +150,6 @@ export default {
     this.$store.dispatch("getAvgRating", cocktail);
     this.userName = window.localStorage.getItem("username");
   },
-
   computed: {
     cocktail() {
       return this.$store.state.cocktail;
@@ -154,6 +165,14 @@ export default {
     }
   },
   methods: {
+    setFavourite(){
+    document.querySelector(".btn-marked").style.display = "block";
+    document.querySelector(".btn-unmarked").style.display = "none";
+    },
+    unSetFavourite(){
+     document.querySelector(".btn-unmarked").style.display = "block";
+     document.querySelector(".btn-marked").style.display = "none";
+    },
     hasType() {
       let result;
       if (this.$store.state.cocktail.type !== "null") {
@@ -163,25 +182,38 @@ export default {
       }
       return result;
     },
-    sendRating() {
-      this.$store.dispatch("sendRating", {
+    sendRating(){
+      let promise = new Promise((resolve) => {
+        resolve(this.$store.dispatch("sendRating", {
         comment: this.comment,
         cocktailName: this.cocktail.name,
         rating: this.rating,
         userName: this.userName
-      });
+      })); 
       console.log(this.userName, this.rating, this.cocktail.name, this.comment);
-      this.$refs.form.reset();
-     location.reload(); 
-    }
-  }
+      })
+      promise.then( () =>  this.$store.dispatch("getRatings",this.cocktail.name),
+         this.$refs.form.reset())
+      }
+    },
 };
+
 </script>
 
 <style scoped>
 span {
   color: #ff66c4;
 }
+
+.btn-marked{
+  color: #ff66c4;
+  display: block;  
+}
+
+.btn-unmarked{
+  display: block;
+}
+
 .ingredient {
   color: white;
   padding-left: 1rem;

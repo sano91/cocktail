@@ -14,7 +14,9 @@
         :key="cocktail.name"
       >
         <v-img :src="cocktail.pictureUrl" height="200px"></v-img>
-        <v-card-title>{{cocktail.name}}</v-card-title>
+        <v-row justify="center">
+        <v-card-title >{{cocktail.name}}</v-card-title>
+        </v-row>
         <v-card-actions>
           <v-spacer></v-spacer>
         </v-card-actions>
