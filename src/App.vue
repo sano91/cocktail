@@ -64,12 +64,8 @@ export default {
   data: () => ({
     drawer: null,
     items: [
-      { icon: "mdi-fridge-outline", text: "Check Fridge", route: "fridge" },
-      {
-        icon: "mdi-glass-cocktail",
-        text: "Add Cocktail",
-        route: "addCocktail"
-      },
+      { icon: "mdi-fridge-outline", text: "Check Fridge", route:"fridge"},
+      { icon: "mdi-glass-cocktail", text: "Add Cocktail", route:"addCocktail" },
       { icon: "mdi-account", text: "Account" },
       { icon: "mdi-flask-outline", text: "Lab" },
       { icon: "mdi-youtube-tv", text: "Videos" },
@@ -104,7 +100,6 @@ export default {
       window.localStorage.removeItem("token");
       window.localStorage.removeItem("username");
       this.$router.push("/login");
-      window.location.reload();
     },
     userNameInStorage() {
       if (window.localStorage.getItem("username") === null) {
