@@ -1,38 +1,38 @@
 <template>
   <v-app id="inspire">
-     <div v-if="userNameInStorage() === true ">
-    <v-navigation-drawer v-model="drawer" app clipped>
-      <v-list dense>
-        <v-img src="../src/assets/realreal.png" max-height="80" aspect-ratio="1" max-width="auto"></v-img>
-        <v-list-item v-for="item in items" :key="item.text">
-          <v-btn @click="gotoRoute(item.route)" absolute color="transparent" depressed>     
-            <v-list-item-action>
-              <v-icon>{{ item.icon }}</v-icon>
-            </v-list-item-action>
-            <v-list-item-content>
-              <v-list-item-title>{{ item.text }}</v-list-item-title>
-            </v-list-item-content>
-          </v-btn>
-        </v-list-item>
-        <v-list>
-          <v-list-item v-for="item in items2" :key="item.text">
-            <v-list-item-avatar></v-list-item-avatar>
-            <v-list-item-title v-text="item.text"></v-list-item-title>
+    <div v-if="userNameInStorage() === true ">
+      <v-navigation-drawer v-model="drawer" app clipped>
+        <v-list dense>
+          <v-img src="../src/assets/realreal.png" max-height="80" aspect-ratio="1" max-width="auto"></v-img>
+          <v-list-item v-for="item in items" :key="item.text">
+            <v-btn @click="gotoRoute(item.route)" absolute color="transparent" depressed>
+              <v-list-item-action>
+                <v-icon>{{ item.icon }}</v-icon>
+              </v-list-item-action>
+              <v-list-item-content>
+                <v-list-item-title>{{ item.text }}</v-list-item-title>
+              </v-list-item-content>
+            </v-btn>
           </v-list-item>
+          <v-list>
+            <v-list-item v-for="item in items2" :key="item.text">
+              <v-list-item-avatar></v-list-item-avatar>
+              <v-list-item-title v-text="item.text"></v-list-item-title>
+            </v-list-item>
+          </v-list>
         </v-list>
-      </v-list>
-    </v-navigation-drawer>
-     </div>
+      </v-navigation-drawer>
+    </div>
 
     <v-app-bar app clipped-left color="#ff66c4" dense>
       <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
       <v-icon class="mx-4">fab fa-youtube</v-icon>
       <v-toolbar-title class="mr-12 align-center">
         <div v-if="userNameInStorage() === true ">
-        <span id="welcome" class="title">Welcome {{username}}</span>
+          <span id="welcome" class="title">Welcome {{username}}</span>
         </div>
-         <div v-if="userNameInStorage() === false ">
-        <span  >You have to Log in to use Cocktail Party</span>
+        <div v-if="userNameInStorage() === false ">
+          <span>You have to Log in to use Cocktail Party</span>
         </div>
       </v-toolbar-title>
       <v-spacer></v-spacer>
@@ -64,8 +64,8 @@ export default {
   data: () => ({
     drawer: null,
     items: [
-      { icon: "mdi-fridge-outline", text: "Check Fridge", route:"fridge"},
-      { icon: "mdi-glass-cocktail", text: "Add Cocktail", route:"addCocktail" },
+      { icon: "mdi-fridge-outline", text: "Check Fridge", route: "fridge" },
+      { icon: "mdi-glass-cocktail", text: "Add Cocktail", route: "addCocktail" }
     ],
     items2: []
   }),
@@ -112,5 +112,9 @@ export default {
   font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
     "Lucida Sans Unicode", Geneva, Verdana, sans-serif !important;
   letter-spacing: 0.3rem !important;
+}
+
+body {
+  background-color: #303030;
 }
 </style>

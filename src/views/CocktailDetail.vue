@@ -58,15 +58,19 @@
           </template>
         </v-simple-table>
         <v-row justify="center">
-             <v-col justify="center">
-                  <div class="btn-unmarked" >
-                  <v-btn @click="setFavourite()" class="btn-unmarked" color="transparent" depressed><v-icon>mdi-star</v-icon>Mark as Favourite</v-btn>
-                  </div>
-                <div class="btn-marked">
-                <v-btn @click="unSetFavourite" class="btn-marked" color="transparent" depressed><v-icon>mdi-star</v-icon>Marked as Favourite</v-btn>
-                </div>
-             </v-col>
-                </v-row>
+          <v-col justify="center">
+            <div class="btn-unmarked">
+              <v-btn @click="setFavourite()" class="btn-unmarked" color="transparent" depressed>
+                <v-icon>mdi-star</v-icon>Mark as Favourite
+              </v-btn>
+            </div>
+            <div class="btn-marked">
+              <v-btn @click="unSetFavourite" class="btn-marked" color="transparent" depressed>
+                <v-icon>mdi-star</v-icon>Marked as Favourite
+              </v-btn>
+            </div>
+          </v-col>
+        </v-row>
       </v-flex>
       <v-flex md6>
         <v-img
@@ -85,11 +89,11 @@
                 <v-form align="center" ref="form" width="400">
                   <v-rating v-model="rating" background-color="#ff66c4" color="#ff66c4" medium></v-rating>
                   <v-btn color="#ff66c4" class="mr-2" @click="sendRating()">Send Rating & Comment</v-btn>
-                   <v-row justify="center">
-                   <v-col cols="12" sm="10" md="8" lg="11">
-                  <v-text-field v-model="comment" label="Your Comment"></v-text-field>
-                   </v-col>
-                   </v-row>
+                  <v-row justify="center">
+                    <v-col cols="12" sm="10" md="8" lg="11">
+                      <v-text-field v-model="comment" label="Your Comment"></v-text-field>
+                    </v-col>
+                  </v-row>
                 </v-form>
               </td>
             </tr>
@@ -114,9 +118,7 @@
                     <td>{{rating.comment}}</td>
                   </tr>
                 </tbody>
-              </td>
-            </tr>
-          </tbody>
+
         </v-simple-table>
       </v-flex>
     </v-layout>
@@ -165,13 +167,13 @@ export default {
     }
   },
   methods: {
-    setFavourite(){
-    document.querySelector(".btn-marked").style.display = "block";
-    document.querySelector(".btn-unmarked").style.display = "none";
+    setFavourite() {
+      document.querySelector(".btn-marked").style.display = "block";
+      document.querySelector(".btn-unmarked").style.display = "none";
     },
-    unSetFavourite(){
-     document.querySelector(".btn-unmarked").style.display = "block";
-     document.querySelector(".btn-marked").style.display = "none";
+    unSetFavourite() {
+      document.querySelector(".btn-unmarked").style.display = "block";
+      document.querySelector(".btn-marked").style.display = "none";
     },
     hasType() {
       let result;
@@ -182,22 +184,31 @@ export default {
       }
       return result;
     },
-    sendRating(){
-      let promise = new Promise((resolve) => {
-        resolve(this.$store.dispatch("sendRating", {
-        comment: this.comment,
-        cocktailName: this.cocktail.name,
-        rating: this.rating,
-        userName: this.userName
-      })); 
-      console.log(this.userName, this.rating, this.cocktail.name, this.comment);
-      })
-      promise.then( () =>  this.$store.dispatch("getRatings",this.cocktail.name),
-         this.$refs.form.reset())
-      }
-    },
+    sendRating() {
+      let promise = new Promise(resolve => {
+        resolve(
+          this.$store.dispatch("sendRating", {
+            comment: this.comment,
+            cocktailName: this.cocktail.name,
+            rating: this.rating,
+            userName: this.userName
+          })
+        );
+        console.log(
+          this.userName,
+          this.rating,
+          this.cocktail.name,
+          this.comment
+        );
+      });
+      promise.then(
+        () => this.$store.dispatch("getRatings", this.cocktail.name),
+        () => this.$store.dispatch("setAverageRating", this.cocktail.name),
+        this.$refs.form.reset()
+      );
+    }
+  }
 };
-
 </script>
 
 <style scoped>
@@ -205,12 +216,12 @@ span {
   color: #ff66c4;
 }
 
-.btn-marked{
+.btn-marked {
   color: #ff66c4;
-  display: block;  
+  display: block;
 }
 
-.btn-unmarked{
+.btn-unmarked {
   display: block;
 }
 
@@ -222,8 +233,11 @@ span {
 .ff {
   padding-left: 0.2rem !important;
 }
+body {
+  background-color: #424242 !important;
+}
 
-td{
-  font-size: 105%
+td {
+  font-size: 105%;
 }
 </style>
