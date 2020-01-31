@@ -1,11 +1,21 @@
 <template>
   <v-app id="inspire">
-    <div v-if="userNameInStorage() === true ">
+    <div v-if="userNameInStorage() === true">
       <v-navigation-drawer v-model="drawer" app clipped>
         <v-list dense>
-          <v-img src="../src/assets/realreal.png" max-height="80" aspect-ratio="1" max-width="auto"></v-img>
+          <v-img
+            src="../src/assets/realreal.png"
+            max-height="80"
+            aspect-ratio="1"
+            max-width="auto"
+          ></v-img>
           <v-list-item v-for="item in items" :key="item.text">
-            <v-btn @click="gotoRoute(item.route)" absolute color="transparent" depressed>
+            <v-btn
+              @click="gotoRoute(item.route)"
+              absolute
+              color="transparent"
+              depressed
+            >
               <v-list-item-action>
                 <v-icon>{{ item.icon }}</v-icon>
               </v-list-item-action>
@@ -28,20 +38,20 @@
       <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
       <v-icon class="mx-4">fab fa-youtube</v-icon>
       <v-toolbar-title class="mr-12 align-center">
-        <div v-if="userNameInStorage() === true ">
-          <span id="welcome" class="title">Welcome {{username}}</span>
+        <div v-if="userNameInStorage() === true">
+          <span id="welcome" class="title">Welcome {{ username }}</span>
         </div>
-        <div v-if="userNameInStorage() === false ">
+        <div v-if="userNameInStorage() === false">
           <span>You have to Log in to use Cocktail Party</span>
         </div>
       </v-toolbar-title>
       <v-spacer></v-spacer>
-      <div v-if="userNameInStorage() === true ">
+      <div v-if="userNameInStorage() === true">
         <v-btn text large to="/">Home</v-btn>
         <v-btn text large to="/about">About</v-btn>
         <v-btn @click="logout" text large>Log out</v-btn>
       </div>
-      <div v-if="userNameInStorage()  === false ">
+      <div v-if="userNameInStorage() === false">
         <v-btn @click="signInForm" text large to="/sign-in">Sign up</v-btn>
         <v-btn @click="loginForm" text large to="/login">Login</v-btn>
       </div>
@@ -64,8 +74,12 @@ export default {
   data: () => ({
     drawer: null,
     items: [
-      { icon: "mdi-fridge-outline", text: "Check Fridge", route:"fridge"},
-      { icon: "mdi-glass-cocktail", text: "Add Cocktail", route:"addCocktail" },
+      { icon: "mdi-fridge-outline", text: "Check Fridge", route: "fridge" },
+      {
+        icon: "mdi-glass-cocktail",
+        text: "Add Cocktail",
+        route: "addCocktail"
+      },
       { icon: "mdi-account", text: "Account" },
       { icon: "mdi-flask-outline", text: "Lab" },
       { icon: "mdi-youtube-tv", text: "Videos" },

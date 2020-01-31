@@ -1,49 +1,71 @@
 <template>
   <v-form ref="form" v-model="valid" lazy-validation>
-     <v-row justify="center">
-    <v-col cols="12" sm="10" md="8" lg="10">
-    <v-text-field v-model="name" :counter="20" :rules="nameRules" label="Name" required></v-text-field>
+    <v-row justify="center">
+      <v-col cols="12" sm="10" md="8" lg="10">
+        <v-text-field
+          v-model="name"
+          :counter="20"
+          :rules="nameRules"
+          label="Name"
+          required
+        ></v-text-field>
 
-    <v-text-field v-model="email" :rules="emailRules" label="E-mail" required></v-text-field>
+        <v-text-field
+          v-model="email"
+          :rules="emailRules"
+          label="E-mail"
+          required
+        ></v-text-field>
 
-    <v-text-field
-      v-model="password"
-      :append-icon="show1 ? items[0].icon1 : items[1].icon2"
-      :rules="[rules.required, rules.min]"
-      :type="show1 ? 'text' : 'password'"
-      name="input-10-1"
-      label="Password"
-      hint="At least 8 characters"
-      counter
-      @click:append="show1 = !show1"
-      required
-    ></v-text-field>
+        <v-text-field
+          v-model="password"
+          :append-icon="show1 ? items[0].icon1 : items[1].icon2"
+          :rules="[rules.required, rules.min]"
+          :type="show1 ? 'text' : 'password'"
+          name="input-10-1"
+          label="Password"
+          hint="At least 8 characters"
+          counter
+          @click:append="show1 = !show1"
+          required
+        ></v-text-field>
 
-    <v-checkbox
-      v-model="checkbox"
-      :rules="[v => !!v || 'You must agree to continue!']"
-      label="Accept terms and condition?"
-      required
-    ></v-checkbox>
+        <v-checkbox
+          v-model="checkbox"
+          :rules="[v => !!v || 'You must agree to continue!']"
+          label="Accept terms and condition?"
+          required
+        ></v-checkbox>
 
-    <v-btn @click="signBtnFunc" :disabled="!valid" color="success" class="mr-4">Sign in</v-btn>
+        <v-btn
+          @click="signBtnFunc"
+          :disabled="!valid"
+          color="success"
+          class="mr-4"
+          >Sign in</v-btn
+        >
 
-    <v-btn color="error" class="mr-4" @click="reset">Reset Form</v-btn>
-    <v-dialog v-model="dialog" max-width="290">
-      <v-card>
-        <v-card-title class="headline" wrap>Registration fail</v-card-title>
+        <v-btn color="error" class="mr-4" @click="reset">Reset Form</v-btn>
+        <v-dialog v-model="dialog" max-width="290">
+          <v-card>
+            <v-card-title class="headline" wrap>Registration fail</v-card-title>
 
-        <v-card-text wrap>Name was taken, please try sign-up with different name.</v-card-text>
+            <v-card-text wrap
+              >Name was taken, please try sign-up with different
+              name.</v-card-text
+            >
 
-        <v-card-actions>
-          <v-spacer></v-spacer>
+            <v-card-actions>
+              <v-spacer></v-spacer>
 
-          <v-btn color="green darken-1" text @click="dialog = false">Ok</v-btn>
-        </v-card-actions>
-      </v-card>
-    </v-dialog>
-    </v-col>
-     </v-row>
+              <v-btn color="green darken-1" text @click="dialog = false"
+                >Ok</v-btn
+              >
+            </v-card-actions>
+          </v-card>
+        </v-dialog>
+      </v-col>
+    </v-row>
   </v-form>
 </template>
 
@@ -111,7 +133,7 @@ export default {
       this.$nextTick(function() {
         if (this.signResult) {
           this.$router.push("/login");
-        } else {  
+        } else {
           this.dialog = true;
         }
       });

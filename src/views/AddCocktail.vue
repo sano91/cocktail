@@ -1,5 +1,3 @@
 <template>
-    <div clas="container">
-            
-    </div>
+  <div clas="container"></div>
 </template>

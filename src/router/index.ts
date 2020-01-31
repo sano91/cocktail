@@ -40,7 +40,6 @@ const routes = [
     name: "AddCocktail",
     component: () => import("../views/AddCocktail.vue")
   }
-  
 ];
 
 const router = new VueRouter({

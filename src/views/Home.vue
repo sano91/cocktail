@@ -1,7 +1,13 @@
 <template>
   <div>
     <v-container>
-      <v-autocomplete label="Choose coktail" :items="cocktails" v-model="value" filled rounded></v-autocomplete>
+      <v-autocomplete
+        label="Choose coktail"
+        :items="cocktails"
+        v-model="value"
+        filled
+        rounded
+      ></v-autocomplete>
       <v-btn justify-center @click="goTo">Check cocktail</v-btn>
     </v-container>
     <div class="cards">
@@ -15,7 +21,7 @@
       >
         <v-img :src="cocktail.pictureUrl" height="200px"></v-img>
         <v-row justify="center">
-        <v-card-title >{{cocktail.name}}</v-card-title>
+          <v-card-title>{{ cocktail.name }}</v-card-title>
         </v-row>
         <v-card-actions>
           <v-spacer></v-spacer>

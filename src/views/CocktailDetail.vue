@@ -1,4 +1,4 @@
-<template >
+<template>
   <v-container fluid ma-0 pa-0 fill-height id="cocktaildetail">
     <v-layout row>
       <v-flex md6>
@@ -9,7 +9,7 @@
                 <td>Name</td>
                 <td>{{ cocktail.name }}</td>
               </tr>
-              <tr v-if="cocktail.type !== 'null' ">
+              <tr v-if="cocktail.type !== 'null'">
                 <td>Cocktail Type</td>
                 <td>{{ cocktail.type }}</td>
               </tr>
@@ -38,9 +38,13 @@
                       v-for="(k, v) in cocktail.ingredients"
                       v-bind:key="v"
                     >
-                      <span class="ingredient ff">{{v}}</span>
+                      <span class="ingredient ff">{{ v }}</span>
                       <span class="ingredient ff">:</span>
-                      <span class="ingredient" v-if="k !== 'null'">{{ k }}</span>
+                      <span class="ingredient" v-if="k !== 'null'">
+                        {{
+                        k
+                        }}
+                      </span>
                       <span v-else class="ingredient">As You wish</span>
                     </li>
                   </ul>
@@ -50,8 +54,13 @@
                 <td>Rating:</td>
                 <td v-if="this.$store.state.averageRating.sumRating == 0">No Ratings yet!</td>
                 <td v-if="this.$store.state.averageRating.sumRating > 0">
-                  <span class="display-1">{{averageRating.averageRating}}</span> from
-                  <span class="display-1">{{averageRating.sumRating}}</span>vote
+                  <span class="display-1">
+                    {{
+                    averageRating.averageRating
+                    }}
+                  </span>
+                  from
+                  <span class="display-1">{{ averageRating.sumRating }}</span>vote
                 </td>
               </tr>
             </tbody>
@@ -104,10 +113,15 @@
               <td>
                 <tbody>
                   <tr>
-                    <td>{{rating.userName}}</td>
-                    <td>at {{rating.date.year}}/{{rating.date.monthValue}}/{{rating.date.dayOfMonth}}</td>
+                    <td v-if="!loading">{{ rating.userName }}</td>
+                    <td v-if="!loading">
+                      at {{ rating.date.year }}/{{ rating.date.monthValue }}/{{
+                      rating.date.dayOfMonth
+                      }}
+                    </td>
                     <td>
                       <v-rating
+                        v-if="!loading"
                         :value="rating.rating"
                         background-color="#ff66c4"
                         color="#ff66c4"
@@ -115,10 +129,12 @@
                         readonly
                       ></v-rating>
                     </td>
-                    <td>{{rating.comment}}</td>
+                    <td v-if="!loading">{{ rating.comment }}</td>
                   </tr>
                 </tbody>
-
+              </td>
+            </tr>
+          </tbody>
         </v-simple-table>
       </v-flex>
     </v-layout>
@@ -127,13 +143,15 @@
 
 <script>
 import axios from "axios";
+import { mdiCheckboxMultipleBlankOutline } from "@mdi/js";
 
 export default {
   name: "coctailDetails",
   data: () => ({
     rating: 1,
     userName: " ",
-    comment: ""
+    comment: "",
+    loading: false
   }),
   mounted() {
     let button = document.querySelector(".btn-marked");
@@ -172,6 +190,10 @@ export default {
       document.querySelector(".btn-marked").style.display = "block";
       document.querySelector(".btn-unmarked").style.display = "none";
     },
+    handleRatings(cocktail) {
+      this.$store.dispatch("getRatings", this.cocktail.name);
+      this.$store.dispatch("setAverageRating", this.cocktail.name);
+    },
     unSetFavourite() {
       document.querySelector(".btn-unmarked").style.display = "block";
       document.querySelector(".btn-marked").style.display = "none";
@@ -186,30 +208,91 @@ export default {
       return result;
     },
     sendRating() {
-      let promise = new Promise(resolve => {
-        resolve(
-          this.$store.dispatch("sendRating", {
-            comment: this.comment,
-            cocktailName: this.cocktail.name,
-            rating: this.rating,
-            userName: this.userName
-          })
-        );
-        console.log(
-          this.userName,
-          this.rating,
-          this.cocktail.name,
-          this.comment
-        );
-      });
-      promise.then(
-        () => this.$store.dispatch("getRatings", this.cocktail.name),
-        () => this.$store.dispatch("setAverageRating", this.cocktail.name),
-        this.$refs.form.reset()
-      );
+      let sendRatingDatas = {
+        comment: this.comment,
+        cocktailName: this.cocktail.name,
+        rating: this.rating,
+        userName: this.userName
+      };
+      let t = this;
+      let store = this.$store;
+      let cocktailName = this.cocktail.name;
+      async function doRating(data, name, store, t) {
+        try {
+          //alert("dorating try bemenet");
+          await store.dispatch("sendRating", data);
+          await store.dispatch("getRatings", name);
+          await store.dispatch("getAvgRating", name);
+          await t.$nextTick();
+        } catch (error) {
+          console.error(error);
+        }
+      }
+      return doRating(sendRatingDatas, cocktailName, store, t);
     }
   }
 };
+// var sendRatingDatas = {
+//         comment: this.comment,
+//         cocktailName: this.cocktail.name,
+//         rating: this.rating,
+//         userName: this.userName
+//       };
+//       var cocktailName = this.cocktail.name;
+//       function x(data) {
+//         return new Promise(resolve => {
+//           setTimeout(() => {
+//             resolve(
+//               this.$store.dispatch("sendRating", data),
+//               (this.loading = true)
+//             );
+//           }, 2000);
+//           console.log(
+//             this.userName,
+//             this.rating,
+//             this.cocktail.name,
+//             this.comment
+//           );
+//         });
+//       }
+//       function y(cocktailname) {
+//         return new Promise(resolve => {
+//           setTimeout(() => {
+//             resolve(
+//               this.$store.dispatch("getRatings", cocktailname),
+//               alert("ratings")
+//             );
+//           }, 2000);
+//         });
+//       }
+
+//       function z(cocktailname) {
+//         return new Promise(resolve => {
+//           setTimeout(() => {
+//             resolve(
+//               this.$store.dispatch("getAvgRating", cocktailname),
+//               alert(this.$store.state.ratings)
+//             );
+//           });
+//         });
+//       }
+
+//       Promise.resolve()
+//         .then(x(sendRatingDatas))
+//         .then(y(cocktailName))
+//         .then(z(cocktailName))
+//         .then(this.$nextTick());
+// .then(function() {
+//   return new Promise(resolve => {
+//     resolve(this.$store.dispatch("getRatings", this.cocktail.name));
+//   });
+// })
+// .then(function() {
+//   return new Promise(resolve => {
+//     resolve(this.$store.dispatch("getAvgRating", this.cocktail.name));
+//   });
+// })
+// .then(this.$nextTick());
 </script>
 
 <style scoped>

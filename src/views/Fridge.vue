@@ -1,8 +1,8 @@
-<template >
+<template>
   <v-container>
     <div id="myDIV">
-      Choose ingredients from the dropdown menu below to filter cocktails,
-      you can delete the chosen ingredient by clicking on them!
+      Choose ingredients from the dropdown menu below to filter cocktails, you
+      can delete the chosen ingredient by clicking on them!
     </div>
     <v-autocomplete
       class="searchbar"
@@ -13,7 +13,9 @@
       filled
       rounded
     ></v-autocomplete>
-    <v-icon class="icon" color="#ff66c4" medium @click="displayInfo">mdi-information-outline</v-icon>
+    <v-icon class="icon" color="#ff66c4" medium @click="displayInfo"
+      >mdi-information-outline</v-icon
+    >
     <span id="currentFilter">Choosed ingredients:</span>
 
     <div
@@ -21,7 +23,9 @@
       @click="deleteIngredient(ingredient)"
       v-for="ingredient in choosedIngredients"
       :key="ingredient"
-    >{{ingredient}}</div>
+    >
+      {{ ingredient }}
+    </div>
     <div>
       <v-card
         @click="goDetailes(cocktail.name)"
@@ -31,8 +35,8 @@
         :key="cocktail.name"
       >
         <v-img :src="cocktail.url" height="200px"></v-img>
-        <v-card-title>{{cocktail.name}}</v-card-title>
-        <v-card-subtitle>{{cocktail.alcoholContent}}</v-card-subtitle>
+        <v-card-title>{{ cocktail.name }}</v-card-title>
+        <v-card-subtitle>{{ cocktail.alcoholContent }}</v-card-subtitle>
         <v-card-actions>
           <v-spacer></v-spacer>
         </v-card-actions>
