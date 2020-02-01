@@ -7,8 +7,9 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     cocktail: {},
+    loginResult: false,
     signResult: false,
-    user: " ",
+    userName: "",
     ratingResult: false,
     ratings: [],
     averageRating: {},
@@ -27,10 +28,17 @@ export default new Vuex.Store({
       state.signResult = result;
     },
     setToken(state, token) {
-      window.localStorage.setItem("token", token);
+      if(token.localeCompare("bad login") !== 0){
+        window.localStorage.setItem("token", token);
+        state.loginResult = true;
+      }
+      else{
+        state.loginResult = false;
+      }
+      
     },
     setUser(state, user) {
-      state.user = user;
+      state.userName = user;
     },
     setRatingResult(state, ratingResult) {
       state.ratingResult = ratingResult;
@@ -50,6 +58,9 @@ export default new Vuex.Store({
     },
     setNamesAndPicturs(state, namesAndPics) {
       state.namesAndPictures = namesAndPics;
+    },
+    setLogout(state){
+      state.userName = "";
     }
   },
   actions: {
@@ -124,7 +135,7 @@ export default new Vuex.Store({
     },
     sendSignIn(context, signForm) {
       console.log(signForm);
-      axios({
+      return axios({
         method: "post",
         url: "http://0.0.0.0:8080/auth/signin",
         data: signForm,
@@ -138,7 +149,7 @@ export default new Vuex.Store({
       }).then(respond => context.commit("setSignResult", respond.data));
     },
     sendLogin(context, loginForm) {
-      axios({
+      return axios({
         method: "post",
         url: "http://0.0.0.0:8080/auth/login",
         data: loginForm,
@@ -152,10 +163,10 @@ export default new Vuex.Store({
         }
       })
         .then(respond => context.commit("setToken", respond.data.token))
-        .finally(() => (window.location.href = "/"));
+        
     },
     getUserName(context, username) {
-      window.localStorage.setItem("username", username);
+      context.commit("setUser", username);
     },
     sendRating(context, rating) {
       return axios({
@@ -188,6 +199,9 @@ export default new Vuex.Store({
       }).then(respond =>
         context.commit("setIngredientCocktails", respond.data)
       );
+    },
+    logout(context){
+      context.commit("setLogout");
     }
   },
 

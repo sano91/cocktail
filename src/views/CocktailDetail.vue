@@ -168,7 +168,7 @@ export default {
     this.$store.dispatch("getCocktailByName", cocktail);
     this.$store.dispatch("getRatings", cocktail);
     this.$store.dispatch("getAvgRating", cocktail);
-    this.userName = window.localStorage.getItem("username");
+    this.userName = this.$store.state.userName;
   },
 
   computed: {

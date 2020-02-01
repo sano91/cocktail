@@ -2,14 +2,7 @@
   <v-form ref="form" v-model="valid" lazy-validation>
     <v-row justify="center">
       <v-col cols="12" sm="10" md="8" lg="10">
-        <v-text-field
-          v-model="name"
-          :counter="20"
-          :rules="nameRules"
-          label="Name"
-          required
-        >
-        </v-text-field>
+        <v-text-field v-model="name" :counter="20" :rules="nameRules" label="Name" required></v-text-field>
 
         <v-text-field
           v-model="password"
@@ -25,25 +18,17 @@
           required
         ></v-text-field>
 
-        <v-btn
-          @click="loginBtnFunc"
-          :disabled="!valid"
-          color="success"
-          class="mr-4"
-          >Login</v-btn
-        >
+        <v-btn @click="loginBtnFunc" :disabled="!valid" color="success" class="mr-4">Login</v-btn>
         <v-dialog v-model="dialog" max-width="290">
           <v-card>
             <v-card-title class="headline" wrap>Login failed</v-card-title>
 
-            <v-card-text wrap>Name or password incorrect</v-card-text>
+            <v-card-text wrap>Name or password is incorrect</v-card-text>
 
             <v-card-actions>
               <v-spacer></v-spacer>
 
-              <v-btn color="green darken-1" text @click="dialog = false"
-                >Ok</v-btn
-              >
+              <v-btn color="green darken-1" text @click="dialog = false">Ok</v-btn>
             </v-card-actions>
           </v-card>
         </v-dialog>
@@ -88,11 +73,33 @@ export default {
   }),
   methods: {
     loginBtnFunc() {
-      this.$store.dispatch("getUserName", this.name);
-      this.$store.dispatch("sendLogin", {
-        username: this.name,
-        password: this.password
-      });
+      if (this.$refs.form.validate()) {
+        this.snackbar = true;
+      }
+      let t = this;
+      async function doLogin(t) {
+        try {
+          if (t.snackbar) {
+            await t.$store.dispatch("sendLogin", {
+              username: t.name,
+              password: t.password
+            });
+            t.$nextTick();
+            if (t.$store.state.loginResult === true) {
+              await t.$store.dispatch("getUserName", t.name);
+              t.$nextTick();
+              t.$router.push("/");
+            } else {
+              t.dialog = true;
+            }
+          } else {
+            alert("form nincs kitöltve");
+          }
+        } catch (error) {
+          console.error(error);
+        }
+      }
+      return doLogin(t);
     }
   }
 };

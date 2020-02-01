@@ -3,19 +3,9 @@
     <div v-if="userNameInStorage() === true">
       <v-navigation-drawer v-model="drawer" app clipped>
         <v-list dense>
-          <v-img
-            src="../src/assets/realreal.png"
-            max-height="80"
-            aspect-ratio="1"
-            max-width="auto"
-          ></v-img>
+          <v-img src="../src/assets/realreal.png" max-height="80" aspect-ratio="1" max-width="auto"></v-img>
           <v-list-item v-for="item in items" :key="item.text">
-            <v-btn
-              @click="gotoRoute(item.route)"
-              absolute
-              color="transparent"
-              depressed
-            >
+            <v-btn @click="gotoRoute(item.route)" absolute color="transparent" depressed>
               <v-list-item-action>
                 <v-icon>{{ item.icon }}</v-icon>
               </v-list-item-action>
@@ -39,7 +29,7 @@
       <v-icon class="mx-4">fab fa-youtube</v-icon>
       <v-toolbar-title class="mr-12 align-center">
         <div v-if="userNameInStorage() === true">
-          <span id="welcome" class="title">Welcome {{ username }}</span>
+          <span id="welcome" class="title">Welcome {{ user }}</span>
         </div>
         <div v-if="userNameInStorage() === false">
           <span>You have to Log in to use Cocktail Party</span>
@@ -87,14 +77,14 @@ export default {
     ],
     items2: []
   }),
-  username: "",
+
   created() {
     this.$vuetify.theme.dark = true;
-    this.username = window.localStorage.getItem("username");
+    // this.username = this.$store.state.userName;
   },
   computed: {
     user() {
-      return this.$store.state.user;
+      return this.$store.state.userName;
     }
   },
   methods: {
@@ -112,11 +102,13 @@ export default {
     },
     logout() {
       window.localStorage.removeItem("token");
-      window.localStorage.removeItem("username");
+      // window.localStorage.removeItem("username");
+      this.$store.dispatch("logout");
+      this.$nextTick();
       this.$router.push("/login");
     },
     userNameInStorage() {
-      if (window.localStorage.getItem("username") === null) {
+      if (this.$store.state.userName === "") {
         return false;
       } else {
         return true;

@@ -2,20 +2,9 @@
   <v-form ref="form" v-model="valid" lazy-validation>
     <v-row justify="center">
       <v-col cols="12" sm="10" md="8" lg="10">
-        <v-text-field
-          v-model="name"
-          :counter="20"
-          :rules="nameRules"
-          label="Name"
-          required
-        ></v-text-field>
+        <v-text-field v-model="name" :counter="20" :rules="nameRules" label="Name" required></v-text-field>
 
-        <v-text-field
-          v-model="email"
-          :rules="emailRules"
-          label="E-mail"
-          required
-        ></v-text-field>
+        <v-text-field v-model="email" :rules="emailRules" label="E-mail" required></v-text-field>
 
         <v-text-field
           v-model="password"
@@ -37,30 +26,22 @@
           required
         ></v-checkbox>
 
-        <v-btn
-          @click="signBtnFunc"
-          :disabled="!valid"
-          color="success"
-          class="mr-4"
-          >Sign in</v-btn
-        >
+        <v-btn @click="signBtnFunc" :disabled="!valid" color="success" class="mr-4">Sign in</v-btn>
 
         <v-btn color="error" class="mr-4" @click="reset">Reset Form</v-btn>
         <v-dialog v-model="dialog" max-width="290">
           <v-card>
             <v-card-title class="headline" wrap>Registration fail</v-card-title>
 
-            <v-card-text wrap
-              >Name was taken, please try sign-up with different
-              name.</v-card-text
-            >
+            <v-card-text wrap>
+              Name was taken, please try sign-up with different
+              name, or maybe the email was taken.
+            </v-card-text>
 
             <v-card-actions>
               <v-spacer></v-spacer>
 
-              <v-btn color="green darken-1" text @click="dialog = false"
-                >Ok</v-btn
-              >
+              <v-btn color="green darken-1" text @click="dialog = false">Ok</v-btn>
             </v-card-actions>
           </v-card>
         </v-dialog>
@@ -121,22 +102,30 @@ export default {
       if (this.$refs.form.validate()) {
         this.snackbar = true;
       }
-      //console.log("before push");
-      //this.$router.push("/sign/sign-in-result");
-      //console.log("after push");
 
-      this.$store.dispatch("sendSignIn", {
+      let signUpData = {
         name: this.name,
         mail: this.email,
         password: this.password
-      });
-      this.$nextTick(function() {
-        if (this.signResult) {
-          this.$router.push("/login");
-        } else {
-          this.dialog = true;
+      };
+      let t = this;
+      async function doSingUp(singData, t) {
+        try {
+          if (t.snackbar) {
+            await t.$store.dispatch("sendSignIn", singData);
+            await t.$nextTick();
+            let signResult = t.$store.state.signResult;
+            if (signResult) {
+              t.$router.push("/login");
+            } else {
+              t.dialog = true;
+            }
+          }
+        } catch (error) {
+          console.error(console.error(error));
         }
-      });
+      }
+      return doSingUp(signUpData, t);
     }
   }
 };
